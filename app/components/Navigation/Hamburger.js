@@ -28,7 +28,7 @@ export default function Hamburger() {
     ) {
       return;
     }
-
+    // test this later. use with and without ...state
     setState({ ...state, [anchor]: open });
   };
   const navItems = [
@@ -39,37 +39,52 @@ export default function Hamburger() {
   ];
 
   const list = (anchor) => (
-    //   <Box
-    //     sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
-    //     role="presentation"
-    //     onClick={toggleDrawer(anchor, false)}
-    //     onKeyDown={toggleDrawer(anchor, false)}
-    //   >
-    //     <List>
-    //       {navItems.map((text, index, url) => (
-    //         <li id="">
-
-    //         </li>
-    //       ))}
-    //     </List>
-    //   </Box>
-
     <Box
       sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
+      className="bg-backDropPink"
     >
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map(
-          (text, index, url) => (
-            <ListItem key={text}>
-              <Link href={url}>{text}</Link>
-            </ListItem>
-          )
-        )}
+        {navItems.map((item) => (
+          <li key={item.id} className="p-2 text-xl active:bg-red-100 ">
+            <Link href={item.href}>{item.name}</Link>
+          </li>
+        ))}
       </List>
     </Box>
+
+    //   <Link
+    //   key={item.id}
+    //   href={item.href}
+    //   aria-current={item.current ? "page" : undefined}
+    //   className={classNames(
+    //     item.current
+    //       ? "bg-darkBlue text-backDropPink px-2 text-xl w-30"
+    //       : "text-backDropPink hover:bg-backDropPink hover:text-black",
+    //     "rounded-md py-2 px-1"
+    //   )}
+    // >
+    //   {item.name}
+    // </Link>
+
+    // <Box
+    //   sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
+    //   role="presentation"
+    //   onClick={toggleDrawer(anchor, false)}
+    //   onKeyDown={toggleDrawer(anchor, false)}
+    // >
+    //   <List>
+    //     {["Inbox", "Starred", "Send email", "Drafts"].map(
+    //       (text, index, url) => (
+    //         <ListItem key={text}>
+    //           <Link href={url}>{text}</Link>
+    //         </ListItem>
+    //       )
+    //     )}
+    //   </List>
+    // </Box>
   );
 
   return (
@@ -77,7 +92,19 @@ export default function Hamburger() {
       {["top"].map((anchor) => (
         <React.Fragment key={anchor}>
           <Button onClick={toggleDrawer(anchor, true)}>
-            <MenuIcon fontSize="large" sx={{ color: "backDropPink" }} />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              className="stroke-backDropPink size-12"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+              />
+            </svg>
           </Button>
           <Drawer
             anchor={anchor}

@@ -40,7 +40,9 @@ export default function Navigation() {
             ))}
           </div>
         </li>
-        <li>{/* <Hamburger /> */}</li>
+        <li>
+          <Hamburger />
+        </li>
       </ul>
     </header>
   );
