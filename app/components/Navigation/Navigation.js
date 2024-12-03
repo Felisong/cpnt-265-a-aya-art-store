@@ -1,5 +1,7 @@
+"use client";
 import Link from "next/link";
 import Logo from "./Logo";
+import Hamburger from "./Hamburger";
 
 export default function Navigation() {
   const nav = [
@@ -38,6 +40,7 @@ export default function Navigation() {
             ))}
           </div>
         </li>
+        <li>{/* <Hamburger /> */}</li>
       </ul>
     </header>
   );

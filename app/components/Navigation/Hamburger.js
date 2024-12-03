@@ -10,6 +10,8 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
+import MenuIcon from "@mui/icons-material/Menu";
+import Link from "next/link";
 
 export default function Hamburger() {
   const [state, setState] = React.useState({
@@ -29,8 +31,29 @@ export default function Hamburger() {
 
     setState({ ...state, [anchor]: open });
   };
+  const navItems = [
+    { name: "Home", href: "/", current: false, id: 1 },
+    { name: "Products", href: "/products", current: false, id: 2 },
+    { name: "Check Out", href: "/check-out", current: false, id: 3 },
+    { name: "Contact", href: "/contact", current: false, id: 4 },
+  ];
 
   const list = (anchor) => (
+    //   <Box
+    //     sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
+    //     role="presentation"
+    //     onClick={toggleDrawer(anchor, false)}
+    //     onKeyDown={toggleDrawer(anchor, false)}
+    //   >
+    //     <List>
+    //       {navItems.map((text, index, url) => (
+    //         <li id="">
+
+    //         </li>
+    //       ))}
+    //     </List>
+    //   </Box>
+
     <Box
       sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
       role="presentation"
@@ -38,38 +61,24 @@ export default function Hamburger() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        {["Inbox", "Starred", "Send email", "Drafts"].map(
+          (text, index, url) => (
+            <ListItem key={text}>
+              <Link href={url}>{text}</Link>
+            </ListItem>
+          )
+        )}
       </List>
     </Box>
   );
 
   return (
-    <div>
-      {["left", "right", "top", "bottom"].map((anchor) => (
+    <div className="block md:hidden">
+      {["top"].map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+          <Button onClick={toggleDrawer(anchor, true)}>
+            <MenuIcon fontSize="large" sx={{ color: "backDropPink" }} />
+          </Button>
           <Drawer
             anchor={anchor}
             open={state[anchor]}

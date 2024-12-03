@@ -6,3 +6,4 @@ My name is Carolina. I am a web dev student trying to create an operational e-co
 
 - [ui.shadcn](https://ui.shadcn.com/docs)
 - [Material UI](https://mui.com/core/)
+- [Material icons](https://mui.com/material-ui/material-icons/)
