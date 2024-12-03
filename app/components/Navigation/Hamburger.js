@@ -54,37 +54,6 @@ export default function Hamburger() {
         ))}
       </List>
     </Box>
-
-    //   <Link
-    //   key={item.id}
-    //   href={item.href}
-    //   aria-current={item.current ? "page" : undefined}
-    //   className={classNames(
-    //     item.current
-    //       ? "bg-darkBlue text-backDropPink px-2 text-xl w-30"
-    //       : "text-backDropPink hover:bg-backDropPink hover:text-black",
-    //     "rounded-md py-2 px-1"
-    //   )}
-    // >
-    //   {item.name}
-    // </Link>
-
-    // <Box
-    //   sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
-    //   role="presentation"
-    //   onClick={toggleDrawer(anchor, false)}
-    //   onKeyDown={toggleDrawer(anchor, false)}
-    // >
-    //   <List>
-    //     {["Inbox", "Starred", "Send email", "Drafts"].map(
-    //       (text, index, url) => (
-    //         <ListItem key={text}>
-    //           <Link href={url}>{text}</Link>
-    //         </ListItem>
-    //       )
-    //     )}
-    //   </List>
-    // </Box>
   );
 
   return (

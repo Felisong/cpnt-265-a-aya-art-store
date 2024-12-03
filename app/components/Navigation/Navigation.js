@@ -17,7 +17,7 @@ export default function Navigation() {
   return (
     <header className="bg-backDropDark flex items-center justify-between">
       <div className="p-4">
-        <Logo />
+        <Logo width={"w-40"} />
       </div>
       <ul className="mx-4">
         <li>
