@@ -1,8 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=MuseoModerno:ital,wght@0,100..900;1,100..900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
+root {
   --background: #ffffff;
   --foreground: #171717;
 }
@@ -17,5 +18,11 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Comfortaa, MuseoModerno;
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: MuseoModerno;
 }

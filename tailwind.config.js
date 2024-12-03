@@ -7,9 +7,18 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        museoModerno: "MuseoModerno",
+        comfortaa: "Comfortaa",
+      },
       colors: {
-        background: "var(--background)",
+        background: "#ffffff",
         foreground: "var(--foreground)",
+        backDropDark: "#4d1821",
+        backDropPink: "#ffc1bd",
+        backDropBlue: "#a8d5da",
+        buttonPurple: "#795dc9",
+        strongPink: "#ff3659",
       },
     },
   },
