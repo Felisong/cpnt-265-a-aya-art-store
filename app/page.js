@@ -1,5 +1,5 @@
 import Image from "next/image";
-import ImageCarousel from "./components/heroComps/ImageCarousel";
+import ImageCarousel from "./components/hero-comps/ImageCarousel";
 import ProductSection from "./components/products-section/ProductsSection";
 import { Button } from "@mui/material";
 
