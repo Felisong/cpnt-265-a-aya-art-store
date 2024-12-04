@@ -22,5 +22,7 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require("@emotion/react", require("@headlessui/react"), require("@mui/material"), require("@emotion/styled")),
+  ],
 };

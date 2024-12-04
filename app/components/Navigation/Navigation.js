@@ -41,9 +41,7 @@ export default function Navigation() {
             ))}
           </div>
         </li>
-        <li>
-          <UserIcons />
-        </li>
+        <li>{/* <UserIcons /> */}</li>
         <li>
           <Hamburger />
         </li>
