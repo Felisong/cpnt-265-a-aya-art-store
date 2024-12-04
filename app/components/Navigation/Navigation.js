@@ -2,6 +2,7 @@
 import Link from "next/link";
 import Logo from "./Logo";
 import Hamburger from "./Hamburger";
+import UserIcon from "./UserIcon";
 
 export default function Navigation() {
   const nav = [
@@ -19,7 +20,7 @@ export default function Navigation() {
       <div className="p-4">
         <Logo width={"w-40"} />
       </div>
-      <ul className="mx-4">
+      <ul className="mx-4 flex items-center">
         <li>
           <div className=" space-x-4 w-fit  hidden md:flex px-2">
             {/* GET NAVIGATION WORKING PRIO */}
@@ -39,6 +40,9 @@ export default function Navigation() {
               </Link>
             ))}
           </div>
+        </li>
+        <li>
+          <UserIcon />
         </li>
         <li>
           <Hamburger />
