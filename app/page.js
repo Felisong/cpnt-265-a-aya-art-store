@@ -4,7 +4,8 @@ import ImageCarousel from "./components/heroComps/imageCarousel";
 export default function Home() {
   return (
     <>
-      <ImageCarousel />
+      {/* <ImageCarousel /> */}
+      <p> image soon :D ?</p>
     </>
   );
 }

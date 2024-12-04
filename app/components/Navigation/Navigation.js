@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Logo from "./Logo";
 import Hamburger from "./Hamburger";
-import UserIcon from "./UserIcon.js";
+import UserIcon from "./UserIcon";
 
 export default function Navigation() {
   const nav = [
