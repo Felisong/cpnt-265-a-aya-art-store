@@ -17,16 +17,16 @@ export default function ImageCarousel() {
       alt: "2 keychains that look like tomagachis. chibi-fied (cute and chubby cheeked) drawn characters from Kingdom Hearts. The characters are Sora, and Roxas. ",
     },
   ];
-  const slides = document.getElementsByClassName("carousel-item");
-  const dots = document.getElementsByClassName("dot");
-  const [position, setPosition] = useState(0);
-  const numOfSlides = slides.length;
+  // const slides = document.getElementsByClassName("carousel-item");
+  // const dots = document.getElementsByClassName("dot");
+  // const [position, setPosition] = useState(0);
+  // const numOfSlides = slides.length;
 
-  const main = 1;
+  // const main = 1;
 
   return (
     <>
-      <div className="w-full flex flex-col lg:mx-auto">
+      <div className="w-full flex flex-col lg:mx-auto lg:items-center bg-backDropPink lg:p-4">
         {/* if index === img-id then execute then show item */}
         <div className="carousel-item carousel-item-visible">
           <img src={images[0].src} alt={images[0].alt} />
