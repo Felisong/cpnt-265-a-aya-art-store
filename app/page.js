@@ -1,9 +1,10 @@
 import Image from "next/image";
+import ImageCarousel from "./components/heroComps/imageCarousel";
 
 export default function Home() {
   return (
     <>
-      <p> why are u above??</p>
+      <ImageCarousel />
     </>
   );
 }
