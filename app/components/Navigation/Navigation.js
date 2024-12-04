@@ -2,7 +2,6 @@
 import Link from "next/link";
 import Logo from "./Logo";
 import Hamburger from "./Hamburger";
-import UserIcons from "./UserIcons";
 
 export default function Navigation() {
   const nav = [
@@ -41,7 +40,7 @@ export default function Navigation() {
             ))}
           </div>
         </li>
-        <li>{/* <UserIcons /> */}</li>
+
         <li>
           <Hamburger />
         </li>
