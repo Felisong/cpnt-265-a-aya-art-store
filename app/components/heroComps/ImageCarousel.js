@@ -14,4 +14,6 @@ export default function ImageCarousel() {
     src: "/kingdom-hearts-tamagotchi-keychain-sora-roxas-double-sided-clear-acrylic-1.webp",
     alt: "2 keychains that look like tomagachis. chibi-fied (cute and chubby cheeked) drawn characters from Kingdom Hearts. The characters are Sora, and Roxas. ",
   };
+
+  return <p> meow</p>;
 }
