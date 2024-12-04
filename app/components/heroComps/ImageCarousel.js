@@ -1,4 +1,3 @@
-import Carousel from "react-bootstrap/Carousel";
 import Image from "next/image";
 
 export default function ImageCarousel() {
