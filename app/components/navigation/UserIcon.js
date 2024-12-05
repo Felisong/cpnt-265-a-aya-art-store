@@ -1,5 +1,7 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
+
 export default function UserIcon() {
   return (
     <Menu as="div" className="relative inline-block text-left">
@@ -32,12 +34,16 @@ export default function UserIcon() {
           </MenuItem>
           <form action="#" method="POST">
             <MenuItem>
+              {/* here I will add a state on if user logged in or not later */}
               <button
                 type="submit"
                 className="block w-full px-4 py-2 text-left text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900 data-[focus]:outline-none"
-                onClick={(e) => {}}
+                onClick={(e) => {
+                  e.preventDefault();
+                  redirect("/login");
+                }}
               >
-                Sign Out
+                Sign In
               </button>
             </MenuItem>
           </form>
