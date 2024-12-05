@@ -24,6 +24,7 @@ export default function Products() {
   return (
     <>
       <Title text="Products" />
+      <p> oh meow meow.</p>
       <div className="flex m-4 justify-center">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
           {products.map((product) => (
