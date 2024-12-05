@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <>
       <ImageCarousel />
-
+      <p> hi</p>
       <ProductSection />
     </>
   );
