@@ -14,7 +14,8 @@
     "@headlessui/react": "^2.2.0",
     "@mui/icons-material": "^6.1.9",
     "@mui/material": "^6.1.9",
-    "@supabase/supabase-js": "^2.46.2",
+    "@supabase/ssr": "^0.5.2",
+    "@supabase/supabase-js": "^2.47.0",
     "next": "15.0.3",
     "react": "18.2.0",
     "react-dom": "18.2.0"
