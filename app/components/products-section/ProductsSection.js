@@ -33,8 +33,7 @@ export default function ProductSection() {
   sample.push(products[2]);
   sample.push(products[3]);
 
-
-  // GET 4 CARDS TO DISPLAY HERE, 
+  // GET 4 CARDS TO DISPLAY HERE,
   // START ON USER AUTH TOMORROW.
   return (
     <div className="mt-24 w-full flex flex-col  mx-auto">
