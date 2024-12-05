@@ -33,7 +33,7 @@ export default function Products() {
 
       <div className="flex m-4 justify-center">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {products ? (
+          {products.length > 0 ? (
             products.map((product) => (
               <Cards
                 key={product.id}
@@ -51,7 +51,7 @@ export default function Products() {
               />
             ))
           ) : (
-            <p> Loading...</p>
+            <p> Loading Cards...</p>
           )}
         </div>
       </div>
