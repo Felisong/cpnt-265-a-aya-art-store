@@ -5,6 +5,7 @@ import Header from "../Title";
 import Title from "../Title";
 import { createClient } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
+
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
@@ -18,8 +19,12 @@ export default function ProductSection() {
   }, []);
 
   async function getProducts() {
-    const { data } = await supabase.from("products").select();
-    setProducts(data);
+    try {
+      const { data } = await supabase.from("products").select();
+      setProducts(data);
+    } catch (error) {
+      console.error("couldn't fetch data", error);
+    }
   }
 
   const sample = [];
@@ -28,13 +33,12 @@ export default function ProductSection() {
   sample.push(products[2]);
   sample.push(products[3]);
 
-  console.log(sample);
   return (
     <div className="mt-24 w-full flex flex-col  mx-auto">
       <Title text="Products" />
       <div className="flex m-4 justify-center">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {sample.map((product) => (
+          {products.map((product) => (
             <Cards
               key={product.id}
               customize={{
