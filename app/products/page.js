@@ -17,32 +17,40 @@ export default function Products() {
   }, []);
 
   async function getProducts() {
-    const { data } = await supabase.from("products").select();
-    setProducts(data);
+    try {
+      const { data } = await supabase.from("products").select();
+      setProducts(data);
+    } catch (error) {
+      console.error(error);
+    }
   }
   // console.log(products[0].image_one);
   return (
     <>
       <Title text="Products" />
-      <p> oh meow meow.</p>
+
       <div className="flex m-4 justify-center">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {products.map((product) => (
-            <Cards
-              key={product.id}
-              customize={{
-                title: product.title,
-                description: product.description,
-                extra: product.extra,
-                image_one: product.image_one,
-                image_two: product.image_two,
-                image_three: product.image_three,
-                image_alt_one: product.image_alt_one,
-                image_alt_two: product.image_alt_two,
-                image_alt_three: product.image_alt_three,
-              }}
-            />
-          ))}
+          {products ? (
+            products.map((product) => (
+              <Cards
+                key={product.id}
+                customize={{
+                  title: product.title,
+                  description: product.description,
+                  extra: product.extra,
+                  image_one: product.image_one,
+                  image_two: product.image_two,
+                  image_three: product.image_three,
+                  image_alt_one: product.image_alt_one,
+                  image_alt_two: product.image_alt_two,
+                  image_alt_three: product.image_alt_three,
+                }}
+              />
+            ))
+          ) : (
+            <p> Loading...</p>
+          )}
         </div>
       </div>
     </>
