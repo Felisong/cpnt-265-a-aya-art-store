@@ -4,12 +4,11 @@ import { createClient } from "@supabase/supabase-js";
 import Cards from "../components/products-section/Cards";
 import Title from "../components/Title";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
-
 export default function Products() {
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  );
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
