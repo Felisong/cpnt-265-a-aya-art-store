@@ -7,9 +7,11 @@ export default function AddToCartBtn({ productData }) {
   const supabase = createClient();
   const [inCart, setInCart] = useState(false);
   const [productsInCart, setProductsInCart] = useState([]);
+  const [updatedProducts, setUpdatedProducts] = useState(productsInCart);
   const [user, setUser] = useState(null);
+  const [errMsg, setErrMsg] = useState(null);
 
-  const isInsideArr = (Element) => Element.id === product.id;
+  const isInsideArr = (Element) => Element.product_id === product.id;
   const findIndex = productsInCart.findIndex(isInsideArr);
   // console log this later
 
@@ -24,18 +26,28 @@ export default function AddToCartBtn({ productData }) {
     addedToCart();
   }, []);
 
+  useEffect(() => {
+    setUpdatedProducts(productsInCart);
+  }, [productsInCart]);
   // getting data from database.
   useEffect(() => {
     getCart();
   }, [inCart]);
+
   useEffect(() => {
     getUser();
   }, []);
-  useEffect(() => {
-    if (user) {
-      handleDatabaseSubmit();
-    }
-  }, [inCart]);
+
+  // consider delaying when this fires out so that the arr has a chance to update?
+  // useEffect(() => {
+  //   if (user) {
+  //     handleDatabaseSubmit();
+  //     setErrMsg(null);
+  //   } else {
+  //     setErrMsg("cannot submit until signed in.");
+  //   }
+  // }, [inCart]);
+
   async function getCart() {
     try {
       const { data } = await supabase.from("cart_items").select();
@@ -45,7 +57,6 @@ export default function AddToCartBtn({ productData }) {
     }
   }
 
-  // I need to do something in here, this is what authorizes what happens depending on if user is signed in
   async function getUser() {
     const { data, error } = await supabase.auth.getUser();
     if (error || !data?.user) {
@@ -58,60 +69,72 @@ export default function AddToCartBtn({ productData }) {
   // handle what happens on click.
   function handleClick(e) {
     e.preventDefault();
-    !inCart ? setInCart(true) : setInCart(false);
+
+    setUpdatedProducts([
+      ...updatedProducts,
+      {
+        user_id: user.user.id,
+        product_id: product.id,
+        quantity: 1,
+        price_per: product.price,
+      },
+    ]);
+    // !inCart ? setInCart(true) : setInCart(false);
+    console.log(productsInCart, product);
   }
+  console.log(updatedProducts);
 
+  // handles database things
   async function handleDatabaseSubmit() {
-    if (user) {
-      getCart();
-      if (!inCart) {
-        if (findIndex !== -1) {
-          productsInCart.splice(findIndex, 1);
-          //delete from database.
-          const { data, error } = await supabase
-            .from("cart_items")
-            .delete()
-            .match({
-              user_id: user.user.id,
-              product_id: product.id,
-            });
-          console.log(data);
-          if (error) {
-            console.error(`unable to delete from database`, error);
-            alert("unable to delete product from database");
-          }
-          console.log("it worked!!!");
-        }
-      } else if (findIndex === -1) {
-        productsInCart.push(product);
-        // post to database
-
+    if (!inCart) {
+      console.log(`is this returning what I want?`);
+      if (findIndex !== -1) {
+        console.log(`test findindex`, findIndex);
+        productsInCart.splice(findIndex, 1);
+        //delete from database.
         const { data, error } = await supabase
           .from("cart_items")
-          .insert([
-            {
-              user_id: user.user.id,
-              product_id: product.id,
-              quantity: 1,
-              price_per: product.price,
-            },
-          ])
-          .select();
+          .delete()
+          .match({
+            user_id: user.user.id,
+            product_id: product.id,
+          });
+        console.log(data);
         if (error) {
-          console.error(`unable to push to database`, error);
-          alert("unable to push product to database");
+          console.error(`unable to delete from database`, error);
+          alert("unable to delete product from database");
         }
         console.log("it worked!!!");
-        console.log(data);
       }
-    } else {
-      redirect("/");
+    } else if (findIndex === -1) {
+      console.log(`test findindex`, findIndex);
+      productsInCart.push(product);
+      // post to database
+
+      const { data, error } = await supabase
+        .from("cart_items")
+        .insert([
+          {
+            user_id: user.user.id,
+            product_id: product.id,
+            quantity: 1,
+            price_per: product.price,
+          },
+        ])
+        .select();
+      if (error) {
+        console.error(`unable to push to database`, error);
+        alert("unable to push product to database");
+      }
+      console.log("it worked!!!");
+      console.log(data);
     }
   }
   // console.log(`test no items in cart: `, productsInCart);
   // console.log(product.id);
   // console.log(`is logged in?`, Boolean(user));
-
+  // console.log(`whats the arr looking like: `, productsInCart);
+  // console.log(`maybe change id`, productsInCart[0]);
   return (
     <>
       <button
