@@ -24,7 +24,6 @@ export default function Cards({ customize }) {
     alt3: customize.image_alt_three,
   };
 
-  console.log(cardData.img1);
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardActionArea>

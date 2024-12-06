@@ -1,16 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
-import { createClient } from "@supabase/supabase-js";
 import Cards from "../components/products-section/Cards";
 import Title from "../components/Title";
+import { createClient } from "@/utils/supabase/client";
 
 export default function Products() {
-  // console.log(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
-
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-  );
+  const supabase = createClient();
 
   const [products, setProducts] = useState([]);
 
@@ -26,7 +21,7 @@ export default function Products() {
       console.error(error);
     }
   }
-  // console.log(products[0].image_one);
+
   return (
     <>
       <Title text="Products" />
