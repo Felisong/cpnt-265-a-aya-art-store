@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import Cards from "../components/products-section/Cards";
+import Cards from "../components/product-related/Cards";
 import Title from "../components/Title";
 import { createClient } from "@/utils/supabase/client";
 
@@ -42,6 +42,7 @@ export default function Products() {
                   image_alt_one: product.image_alt_one,
                   image_alt_two: product.image_alt_two,
                   image_alt_three: product.image_alt_three,
+                  id: product.id,
                 }}
               />
             ))

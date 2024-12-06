@@ -8,6 +8,7 @@ import CardActionArea from "@mui/material/CardActionArea";
 import CardActions from "@mui/material/CardActions";
 import { type } from "os";
 import { WidthFull } from "@mui/icons-material";
+import AddToCartBtn from "./AddToCartBtn";
 
 export default function Cards({ customize }) {
   // possible inputs
@@ -48,6 +49,7 @@ export default function Cards({ customize }) {
       </CardActionArea>
       <CardActions>
         <Button>Share</Button>
+        <AddToCartBtn productData={cardData} />
       </CardActions>
     </Card>
   );

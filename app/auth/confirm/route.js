@@ -31,9 +31,3 @@ export async function GET(request) {
   redirectTo.pathname = "/error";
   return NextResponse.redirect(redirectTo);
 }
-
-// HI ME
-
-// so finish user auth, get all this toturial out of the way!
-// thats all i have as a goal for tonight. Afterwards see if I can get started with stripe and ask stephenie for her details -- ORRR get products to query and show!
-// both are valid endeavers. and make sure u play a little tonight!
