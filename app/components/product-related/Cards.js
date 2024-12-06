@@ -23,6 +23,7 @@ export default function Cards({ customize }) {
     alt1: customize.image_alt_one,
     alt2: customize.image_alt_two,
     alt3: customize.image_alt_three,
+    price: customize.price,
   };
 
   return (

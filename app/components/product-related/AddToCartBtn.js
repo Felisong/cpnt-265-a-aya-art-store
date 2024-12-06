@@ -1,4 +1,5 @@
 import { createClient } from "@/utils/supabase/client";
+import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function AddToCartBtn({ productData }) {
@@ -9,7 +10,6 @@ export default function AddToCartBtn({ productData }) {
   const [user, setUser] = useState(null);
 
   const isInsideArr = (Element) => Element.id === product.id;
-  // console log this later
   const findIndex = productsInCart.findIndex(isInsideArr);
   // console log this later
 
@@ -19,6 +19,7 @@ export default function AddToCartBtn({ productData }) {
       setInCart(true);
     }
   };
+
   useEffect(() => {
     addedToCart();
   }, []);
@@ -30,7 +31,11 @@ export default function AddToCartBtn({ productData }) {
   useEffect(() => {
     getUser();
   }, []);
-
+  useEffect(() => {
+    if (user) {
+      handleDatabaseSubmit();
+    }
+  }, [inCart]);
   async function getCart() {
     try {
       const { data } = await supabase.from("cart_items").select();
@@ -39,6 +44,8 @@ export default function AddToCartBtn({ productData }) {
       console.log("unable to get items", error);
     }
   }
+
+  // I need to do something in here, this is what authorizes what happens depending on if user is signed in
   async function getUser() {
     const { data, error } = await supabase.auth.getUser();
     if (error || !data?.user) {
@@ -47,7 +54,7 @@ export default function AddToCartBtn({ productData }) {
       setUser(data);
     }
   }
-  console.log(product.id);
+
   // handle what happens on click.
   function handleClick(e) {
     e.preventDefault();
@@ -56,6 +63,7 @@ export default function AddToCartBtn({ productData }) {
 
   async function handleDatabaseSubmit() {
     if (user) {
+      getCart();
       if (!inCart) {
         if (findIndex !== -1) {
           productsInCart.splice(findIndex, 1);
@@ -69,8 +77,8 @@ export default function AddToCartBtn({ productData }) {
             });
           console.log(data);
           if (error) {
-            console.error(`unable to push to database`, error);
-            alert("unable to push product to database");
+            console.error(`unable to delete from database`, error);
+            alert("unable to delete product from database");
           }
           console.log("it worked!!!");
         }
@@ -81,7 +89,12 @@ export default function AddToCartBtn({ productData }) {
         const { data, error } = await supabase
           .from("cart_items")
           .insert([
-            { user_id: user.user.id, product_id: product.id, quantity: 1 },
+            {
+              user_id: user.user.id,
+              product_id: product.id,
+              quantity: 1,
+              price_per: product.price,
+            },
           ])
           .select();
         if (error) {
@@ -92,28 +105,13 @@ export default function AddToCartBtn({ productData }) {
         console.log(data);
       }
     } else {
-      alert(
-        "cannot add to cart until user is logged in. Please make an account."
-      );
+      redirect("/");
     }
   }
   // console.log(`test no items in cart: `, productsInCart);
+  // console.log(product.id);
+  // console.log(`is logged in?`, Boolean(user));
 
-  // at this point, if there is data inside the database, it updates, if no data in database prodcutsInCart will be [].
-
-  // on click I want to add that to the product data into the array.
-  // after it is successfully added, post to the cart database.
-
-  // every time in cart variable changes, it will run get  cart, which should update with the current database.
-
-  // if user wants to get rid of item. delete it from database.
-
-  // add an alert to happen on click, if not logged in, request to make an account
-  function isLoggedIn() {
-    if (!user.id) {
-      alert("Please make an account to add to cart and order.");
-    }
-  }
   return (
     <>
       <button
@@ -123,10 +121,13 @@ export default function AddToCartBtn({ productData }) {
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          fill="none"
           viewBox="0 0 24 24"
           strokeWidth={1.5}
-          className="size-8 stroke-strongPink hover:stroke-pink-900"
+          className={`size-8 stroke-strongPink hover:stroke-pink-900 ${
+            !inCart
+              ? `fill-none`
+              : `fill-strongPink hover:stroke-pink-900 hover:fill-pink-900`
+          }`}
         >
           <path
             strokeLinecap="round"

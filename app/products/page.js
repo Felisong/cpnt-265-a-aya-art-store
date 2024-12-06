@@ -43,6 +43,7 @@ export default function Products() {
                   image_alt_two: product.image_alt_two,
                   image_alt_three: product.image_alt_three,
                   id: product.id,
+                  price: product.price,
                 }}
               />
             ))
