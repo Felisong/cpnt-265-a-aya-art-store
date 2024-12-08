@@ -6,11 +6,12 @@ import { createClient } from "@/utils/supabase/client";
 
 export default function Products() {
   const supabase = createClient();
-
+  const [cart, setCart] = useState([]);
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
     getProducts();
+    getCart();
   }, []);
 
   async function getProducts() {
@@ -21,7 +22,16 @@ export default function Products() {
       console.error(error);
     }
   }
+  async function getCart() {
+    try {
+      const { data } = await supabase.from("cart_items").select();
+      setCart(data || []);
+    } catch (error) {
+      console.error("unable to get items", error);
+    }
+  }
 
+  console.log(cart);
   return (
     <>
       <Title text="Products" />
@@ -51,6 +61,20 @@ export default function Products() {
             <p> Loading Cards...</p>
           )}
         </div>
+      </div>
+      <div>
+        <h2 className="text-3xl flex w-full justify-center"> Cart </h2>
+        <ul>
+          {cart.map((product) => {
+            return (
+              <li key={product.id} className="flex w-full justify-center">
+                <p className="w-1/3">{product.product_title + "  "}</p>
+
+                <p>{product.quantity} </p>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </>
   );

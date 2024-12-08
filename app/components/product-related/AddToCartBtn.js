@@ -52,6 +52,7 @@ export default function AddToCartBtn({ productData }) {
     // check if user is logged in
     if (user === null) {
       alert("Please login to add to cart.");
+      return;
     }
     // NEW HANDLE SUBMISSIONS
     handleDatabase();
@@ -66,9 +67,6 @@ export default function AddToCartBtn({ productData }) {
         user_id: user.user.id,
         product_id: product.id,
       });
-
-      console.log(`PUSH:->initial cart: `, initialCart);
-      console.log(`PUSH -> show ME: `, cartProducts);
     } else {
       setCartProducts([
         // all the other cartProducts if any
@@ -79,6 +77,7 @@ export default function AddToCartBtn({ productData }) {
           product_id: product.id,
           quantity: 1,
           price_per: product.price,
+          product_title: product.title,
         },
       ]);
       const { data, error } = await supabase
@@ -89,22 +88,17 @@ export default function AddToCartBtn({ productData }) {
             product_id: product.id,
             quantity: 1,
             price_per: product.price,
+            product_title: product.title,
           },
         ])
         .select();
-
-      console.log(`initial cart: `, initialCart);
-      console.log(`show ME: `, cartProducts);
     }
   }
-
-  console.log(`why is it not the same?`, initialCart, cartProducts);
 
   return (
     <>
       <button
         onClick={(e) => {
-          const fillIn = document.getElementById("cart");
           handleClick(e);
         }}
       >
