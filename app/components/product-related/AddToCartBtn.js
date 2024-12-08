@@ -17,22 +17,21 @@ export default function AddToCartBtn({ productData }) {
 
   useEffect(() => {
     getUser();
-  }, []);
-
-  useEffect(() => {
-    addedToCart();
-  }, []);
-
-  // getting data from database.
-  useEffect(() => {
     getCart();
   }, []);
 
+  useEffect(() => {
+    updateCart();
+  }, [initialCart]);
+
+  function updateCart() {
+    setCartProducts(initialCart);
+  }
   // ON LOAD FUNCTIONS
   async function getCart() {
     try {
       const { data } = await supabase.from("cart_items").select();
-      setInitialCart(data);
+      setInitialCart(data || []);
     } catch (error) {
       console.error("unable to get items", error);
     }
@@ -47,69 +46,65 @@ export default function AddToCartBtn({ productData }) {
     }
   }
 
-  const addedToCart = () => {
-    if (findIndex !== -1) {
-      setInCart(true);
-    }
-  };
-
   // handle what happens on click.
   function handleClick(e) {
     e.preventDefault();
     // check if user is logged in
     if (user === null) {
       alert("Please login to add to cart.");
+    }
+    // NEW HANDLE SUBMISSIONS
+    handleDatabase();
+  }
+
+  async function handleDatabase() {
+    if (findIndex !== -1) {
+      setCartProducts(
+        cartProducts.filter((item) => item.product_id !== product.id)
+      );
+      const { data, error } = await supabase.from("cart_items").delete().match({
+        user_id: user.user.id,
+        product_id: product.id,
+      });
+
+      console.log(`PUSH:->initial cart: `, initialCart);
+      console.log(`PUSH -> show ME: `, cartProducts);
     } else {
-      // NEW HANDLE SUBMISSIONS
-      async function handleDatabase() {
-        if (findIndex !== -1) {
-          setCartProducts(
-            cartProducts.filter((item) => item.product_id !== product.id)
-          );
-          const { data, error } = await supabase
-            .from("cart_items")
-            .delete()
-            .match({
-              user_id: user.user.id,
-              product_id: product.id,
-            });
-        } else {
-          setCartProducts([
-            // all the other cartProducts if any
-            ...cartProducts,
-            // adds "this" into the array
-            {
-              user_id: user.user.id,
-              product_id: product.id,
-              quantity: 1,
-              price_per: product.price,
-            },
-          ]);
-          const { data, error } = await supabase
-            .from("cart_items")
-            .insert([
-              {
-                user_id: user.user.id,
-                product_id: product.id,
-                quantity: 1,
-                price_per: product.price,
-              },
-            ])
-            .select();
-          console.log(`test what adding to database does: `, data, error);
-        }
-      }
-      handleDatabase();
+      setCartProducts([
+        // all the other cartProducts if any
+        ...cartProducts,
+        // adds "this" into the array
+        {
+          user_id: user.user.id,
+          product_id: product.id,
+          quantity: 1,
+          price_per: product.price,
+        },
+      ]);
+      const { data, error } = await supabase
+        .from("cart_items")
+        .insert([
+          {
+            user_id: user.user.id,
+            product_id: product.id,
+            quantity: 1,
+            price_per: product.price,
+          },
+        ])
+        .select();
+
+      console.log(`initial cart: `, initialCart);
+      console.log(`show ME: `, cartProducts);
     }
   }
 
-  // cartproducts is not doing what intended. not updating according to initial, i need to check initial
-  // TODO: check initialCart if its recieving database, then compare cartProducts to it and figure out the root of this issue.
-  console.log(`show ME: `, cartProducts);
+  console.log(`why is it not the same?`, initialCart, cartProducts);
+
   return (
     <>
       <button
         onClick={(e) => {
+          const fillIn = document.getElementById("cart");
           handleClick(e);
         }}
       >
@@ -117,6 +112,7 @@ export default function AddToCartBtn({ productData }) {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           strokeWidth={1.5}
+          id="cart"
           className={`size-8 stroke-strongPink hover:stroke-pink-900 ${
             findIndex === -1
               ? `fill-none`
