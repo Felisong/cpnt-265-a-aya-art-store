@@ -56,88 +56,56 @@ export default function AddToCartBtn({ productData }) {
   // handle what happens on click.
   function handleClick(e) {
     e.preventDefault();
-
     // check if user is logged in
     if (user === null) {
       alert("Please login to add to cart.");
     } else {
       // NEW HANDLE SUBMISSIONS
-      if (findIndex !== -1) {
-        setCartProducts(cartProducts.filter((item) => item.id !== product.id));
-      }
-      // will make cartProducts have all items except "this" one.
-      // FUNCTION DELETE FROM DATABASE
-      else {
-        // else. iTEM DOES NOT EXIST.
-        // set Cart
-        setCartProducts([
-          // all the other cartProducts if any
-          ...cartProducts,
-          // adds "this" into the array
-          {
-            user_id: user.user.id,
-            product_id: product.id,
-            quantity: 1,
-            price_per: product.price,
-          },
-        ]);
-        // push the new cartsProducts to the database. Which initial cart will try to load, because we changed cartProducts. So now initial cart has the updated cart.  add cartProducts as dependency on getCart effect.
-      }
-    }
-  }
-
-  console.log(`check if logged in`, user === null);
-
-  // handles database things
-  async function handleDatabaseSubmit() {
-    if (!inCart) {
-      if (findIndex !== -1) {
-        console.log(`test findindex`, findIndex);
-        initialCart.splice(findIndex, 1);
-        //delete from database.
-        const { data, error } = await supabase
-          .from("cart_items")
-          .delete()
-          .match({
-            user_id: user.user.id,
-            product_id: product.id,
-          });
-        console.log(data);
-        if (error) {
-          console.error(`unable to delete from database`, error);
-          alert("unable to delete product from database");
+      async function handleDatabase() {
+        if (findIndex !== -1) {
+          setCartProducts(
+            cartProducts.filter((item) => item.product_id !== product.id)
+          );
+          const { data, error } = await supabase
+            .from("cart_items")
+            .delete()
+            .match({
+              user_id: user.user.id,
+              product_id: product.id,
+            });
+        } else {
+          setCartProducts([
+            // all the other cartProducts if any
+            ...cartProducts,
+            // adds "this" into the array
+            {
+              user_id: user.user.id,
+              product_id: product.id,
+              quantity: 1,
+              price_per: product.price,
+            },
+          ]);
+          const { data, error } = await supabase
+            .from("cart_items")
+            .insert([
+              {
+                user_id: user.user.id,
+                product_id: product.id,
+                quantity: 1,
+                price_per: product.price,
+              },
+            ])
+            .select();
+          console.log(`test what adding to database does: `, data, error);
         }
-        console.log("it worked!!!");
       }
-    } else if (findIndex === -1) {
-      console.log(`test findindex`, findIndex);
-      initialCart.push(product);
-      // post to database
-
-      const { data, error } = await supabase
-        .from("cart_items")
-        .insert([
-          {
-            user_id: user.user.id,
-            product_id: product.id,
-            quantity: 1,
-            price_per: product.price,
-          },
-        ])
-        .select();
-      if (error) {
-        console.error(`unable to push to database`, error);
-        alert("unable to push product to database");
-      }
-      console.log("it worked!!!");
-      console.log(data);
+      handleDatabase();
     }
   }
-  // console.log(`test no items in cart: `, initialCart);
-  // console.log(product.id);
-  // console.log(`is logged in?`, Boolean(user));
-  // console.log(`whats the arr looking like: `, initialCart);
-  // console.log(`maybe change id`, initialCart[0]);
+
+  // cartproducts is not doing what intended. not updating according to initial, i need to check initial
+  // TODO: check initialCart if its recieving database, then compare cartProducts to it and figure out the root of this issue.
+  console.log(`show ME: `, cartProducts);
   return (
     <>
       <button
@@ -150,7 +118,7 @@ export default function AddToCartBtn({ productData }) {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           className={`size-8 stroke-strongPink hover:stroke-pink-900 ${
-            !inCart
+            findIndex === -1
               ? `fill-none`
               : `fill-strongPink hover:stroke-pink-900 hover:fill-pink-900`
           }`}
