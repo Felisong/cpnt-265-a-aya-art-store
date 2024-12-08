@@ -6,7 +6,6 @@ export default function AddToCartBtn({ productData }) {
   const product = productData;
   const supabase = createClient();
 
-  const [inCart, setInCart] = useState(false);
   const [initialCart, setInitialCart] = useState([]);
   const [cartProducts, setCartProducts] = useState(initialCart);
   const [user, setUser] = useState(null);
