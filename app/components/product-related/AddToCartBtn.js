@@ -5,55 +5,36 @@ import { useEffect, useState } from "react";
 export default function AddToCartBtn({ productData }) {
   const product = productData;
   const supabase = createClient();
+
   const [inCart, setInCart] = useState(false);
-  const [productsInCart, setProductsInCart] = useState([]);
-  const [updatedProducts, setUpdatedProducts] = useState(productsInCart);
+  const [initialCart, setInitialCart] = useState([]);
+  const [cartProducts, setCartProducts] = useState(initialCart);
   const [user, setUser] = useState(null);
   const [errMsg, setErrMsg] = useState(null);
 
   const isInsideArr = (Element) => Element.product_id === product.id;
-  const findIndex = productsInCart.findIndex(isInsideArr);
-  // console log this later
-
-  // if it is in cart, keep it onload so user knows its loaded.
-  const addedToCart = () => {
-    if (findIndex !== -1) {
-      setInCart(true);
-    }
-  };
-
-  useEffect(() => {
-    addedToCart();
-  }, []);
-
-  useEffect(() => {
-    setUpdatedProducts(productsInCart);
-  }, [productsInCart]);
-  // getting data from database.
-  useEffect(() => {
-    getCart();
-  }, [inCart]);
+  const findIndex = cartProducts.findIndex(isInsideArr);
 
   useEffect(() => {
     getUser();
   }, []);
 
-  // consider delaying when this fires out so that the arr has a chance to update?
-  // useEffect(() => {
-  //   if (user) {
-  //     handleDatabaseSubmit();
-  //     setErrMsg(null);
-  //   } else {
-  //     setErrMsg("cannot submit until signed in.");
-  //   }
-  // }, [inCart]);
+  useEffect(() => {
+    addedToCart();
+  }, []);
 
+  // getting data from database.
+  useEffect(() => {
+    getCart();
+  }, []);
+
+  // ON LOAD FUNCTIONS
   async function getCart() {
     try {
       const { data } = await supabase.from("cart_items").select();
-      setProductsInCart(data);
+      setInitialCart(data);
     } catch (error) {
-      console.log("unable to get items", error);
+      console.error("unable to get items", error);
     }
   }
 
@@ -66,31 +47,53 @@ export default function AddToCartBtn({ productData }) {
     }
   }
 
+  const addedToCart = () => {
+    if (findIndex !== -1) {
+      setInCart(true);
+    }
+  };
+
   // handle what happens on click.
   function handleClick(e) {
     e.preventDefault();
 
-    setUpdatedProducts([
-      ...updatedProducts,
-      {
-        user_id: user.user.id,
-        product_id: product.id,
-        quantity: 1,
-        price_per: product.price,
-      },
-    ]);
-    // !inCart ? setInCart(true) : setInCart(false);
-    console.log(productsInCart, product);
+    // check if user is logged in
+    if (user === null) {
+      alert("Please login to add to cart.");
+    } else {
+      // NEW HANDLE SUBMISSIONS
+      if (findIndex !== -1) {
+        setCartProducts(cartProducts.filter((item) => item.id !== product.id));
+      }
+      // will make cartProducts have all items except "this" one.
+      // FUNCTION DELETE FROM DATABASE
+      else {
+        // else. iTEM DOES NOT EXIST.
+        // set Cart
+        setCartProducts([
+          // all the other cartProducts if any
+          ...cartProducts,
+          // adds "this" into the array
+          {
+            user_id: user.user.id,
+            product_id: product.id,
+            quantity: 1,
+            price_per: product.price,
+          },
+        ]);
+        // push the new cartsProducts to the database. Which initial cart will try to load, because we changed cartProducts. So now initial cart has the updated cart.  add cartProducts as dependency on getCart effect.
+      }
+    }
   }
-  console.log(updatedProducts);
+
+  console.log(`check if logged in`, user === null);
 
   // handles database things
   async function handleDatabaseSubmit() {
     if (!inCart) {
-      console.log(`is this returning what I want?`);
       if (findIndex !== -1) {
         console.log(`test findindex`, findIndex);
-        productsInCart.splice(findIndex, 1);
+        initialCart.splice(findIndex, 1);
         //delete from database.
         const { data, error } = await supabase
           .from("cart_items")
@@ -108,7 +111,7 @@ export default function AddToCartBtn({ productData }) {
       }
     } else if (findIndex === -1) {
       console.log(`test findindex`, findIndex);
-      productsInCart.push(product);
+      initialCart.push(product);
       // post to database
 
       const { data, error } = await supabase
@@ -130,11 +133,11 @@ export default function AddToCartBtn({ productData }) {
       console.log(data);
     }
   }
-  // console.log(`test no items in cart: `, productsInCart);
+  // console.log(`test no items in cart: `, initialCart);
   // console.log(product.id);
   // console.log(`is logged in?`, Boolean(user));
-  // console.log(`whats the arr looking like: `, productsInCart);
-  // console.log(`maybe change id`, productsInCart[0]);
+  // console.log(`whats the arr looking like: `, initialCart);
+  // console.log(`maybe change id`, initialCart[0]);
   return (
     <>
       <button
