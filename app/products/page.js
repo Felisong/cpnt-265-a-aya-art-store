@@ -5,10 +5,12 @@ import Title from "../components/Title";
 import { createClient } from "@/utils/supabase/client";
 import CartDisplay from "../components/product-related/CartDisplay";
 import { redirect } from "next/navigation";
+import ErrorModal from "../components/loading/ErrorModal";
 
 export default function Products() {
   const supabase = createClient();
   const [products, setProducts] = useState([]);
+  const [trigger, setTrigger] = useState(false);
 
   useEffect(() => {
     getProducts();
@@ -55,14 +57,6 @@ export default function Products() {
       </div>
       <div className="bg-backDropPink flex flex-col items-center pb-8">
         <CartDisplay products={products} />
-        <button
-          onClick={(e) => {
-            redirect("/check-out");
-          }}
-          className="bg-white p-2 rounded-full w-fit m-4 mb-2"
-        >
-          Go to Checkout.
-        </button>
       </div>
     </>
   );
