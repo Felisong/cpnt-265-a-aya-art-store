@@ -51,7 +51,7 @@ export default function Cards({ customize }) {
       <div className="flex items-center">
         <Button>Share</Button>
         <AddToCartBtn productData={cardData} />
-        <p> {cardData.price.toFixed(2)}$</p>
+        <p> {cardData.price.toFixed(2)} $</p>
       </div>
     </Card>
   );
