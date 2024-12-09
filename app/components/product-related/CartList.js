@@ -1,3 +1,4 @@
+import { createClient } from "@/utils/supabase/client";
 import { useState } from "react";
 
 export default function CartList({ cartData }) {
@@ -36,8 +37,7 @@ export function ProductSublist({ cartData }) {
 }
 
 export function Quantity({ product }) {
-  const [quantity, setQuantity] = useState(product.quantity);
-  const [value, setValue] = useState(quantity);
+  const supabase = createClient();
   const dropDown = [
     { label: "1", value: 1 },
     { label: "2", value: 2 },
@@ -46,19 +46,24 @@ export function Quantity({ product }) {
     { label: "5", value: 5 },
   ];
 
-  // update quantity whenever it changes on the database.
-  useState(() => {
-    updateQuantity;
-  }, product.quantity);
-  function updateQuantity() {
-    setQuantity(product.quantity);
+  function handleOnChange(e) {
+    const value = e.target.value;
+    e.preventDefault(e);
+    updateDatabase(value, product);
   }
 
-  function handleOnChange(e) {
-    e.preventDefault(e);
-    setValue(e.target.value);
-    // anytime value changes, {
-    // update database with the value.}
+  async function updateDatabase(value, product) {
+    const { data, error } = await supabase
+      .from("cart_items")
+      .update({ quantity: value })
+      .eq("id", product.id)
+      .select();
+
+    if (error) {
+      console.error("error updating database,", error);
+    } else {
+      console.log("successful, go check.");
+    }
   }
 
   // now I can do if value === 3 change...
@@ -68,6 +73,7 @@ export function Quantity({ product }) {
   return (
     <select
       aria-placeholder="in order 1, 2, 3, 4, or 5 of this product."
+      value={product.quantity}
       onChange={(e) => {
         handleOnChange(e);
       }}
