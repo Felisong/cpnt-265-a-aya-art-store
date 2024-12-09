@@ -2,9 +2,6 @@ import { createClient } from "@/utils/supabase/client";
 import { useState } from "react";
 
 export default function CartList({ cartData }) {
-  // console.log(cartData);
-  // inside cart list, do all 3 lists. Products, quantity, and price.
-
   return (
     <div>
       <div className="flex flex-col">

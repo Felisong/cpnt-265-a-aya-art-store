@@ -20,7 +20,10 @@ export default function CartDisplay(products) {
 
   async function getCart() {
     try {
-      const { data } = await supabase.from("cart_items").select();
+      const { data } = await supabase
+        .from("cart_items")
+        .select()
+        .order("id", { ascending: true });
       setInitialCart(data || []);
     } catch (error) {
       console.error("unable to get items", error);
@@ -38,7 +41,7 @@ export default function CartDisplay(products) {
       <h2 className="text-4xl p-6 text-center"> Cart </h2>
 
       <CartList cartData={cart} />
-      <button> Go to Checkout.</button>
+      <button> Go to Checkout. </button>
     </section>
   );
 }
