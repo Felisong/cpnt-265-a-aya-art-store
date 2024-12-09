@@ -29,7 +29,7 @@ export default function ProductSublist({ cartData }) {
         );
       })}
       <li>
-        <h2 className="text-center text-2xl">SubTotal : {totalPrice}</h2>
+        <h2 className="text-center text-2xl">SubTotal : {totalPrice} $</h2>
       </li>
     </ul>
   );

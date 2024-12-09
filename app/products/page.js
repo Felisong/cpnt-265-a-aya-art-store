@@ -4,6 +4,7 @@ import Cards from "../components/product-related/Cards";
 import Title from "../components/Title";
 import { createClient } from "@/utils/supabase/client";
 import CartDisplay from "../components/product-related/CartDisplay";
+import { redirect } from "next/navigation";
 
 export default function Products() {
   const supabase = createClient();
@@ -52,8 +53,16 @@ export default function Products() {
           )}
         </div>
       </div>
-      <div>
+      <div className="bg-backDropPink flex flex-col items-center pb-8">
         <CartDisplay products={products} />
+        <button
+          onClick={(e) => {
+            redirect("/check-out");
+          }}
+          className="bg-white p-2 rounded-full w-fit m-4 mb-2"
+        >
+          Go to Checkout.
+        </button>
       </div>
     </>
   );

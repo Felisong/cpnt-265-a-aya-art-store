@@ -2,6 +2,7 @@ import { createClient } from "@/utils/supabase/client";
 import { useEffect, useState } from "react";
 import Title from "../Title";
 import CartList from "./CartList";
+import { redirect } from "next/dist/server/api-utils";
 
 export default function CartDisplay(products) {
   const [initialCart, setInitialCart] = useState([]);
@@ -37,11 +38,10 @@ export default function CartDisplay(products) {
   // console.log(`real cart: `, cart);
 
   return (
-    <section className="flex flex-col bg-backDropPink mt-12">
+    <section className="flex flex-col mt-12">
       <h2 className="text-4xl p-6 text-center"> Cart </h2>
 
       <CartList cartData={cart} />
-      <button> Go to Checkout. </button>
     </section>
   );
 }
