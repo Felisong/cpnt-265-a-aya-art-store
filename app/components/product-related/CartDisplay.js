@@ -30,14 +30,15 @@ export default function CartDisplay(products) {
   function updateCart() {
     setCart(initialCart);
   }
-  console.log(`initial cart: `, initialCart);
-  console.log(`real cart: `, cart);
+  // console.log(`initial cart: `, initialCart);
+  // console.log(`real cart: `, cart);
 
   return (
     <section className="flex flex-col bg-backDropPink mt-12">
       <h2 className="text-4xl p-6 text-center"> Cart </h2>
 
       <CartList cartData={cart} />
+      <button> Go to Checkout.</button>
     </section>
   );
 }

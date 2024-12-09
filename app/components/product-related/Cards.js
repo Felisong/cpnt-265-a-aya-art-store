@@ -48,10 +48,11 @@ export default function Cards({ customize }) {
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
+      <div className="flex items-center">
         <Button>Share</Button>
         <AddToCartBtn productData={cardData} />
-      </CardActions>
+        <p> {cardData.price.toFixed(2)}$</p>
+      </div>
     </Card>
   );
 }

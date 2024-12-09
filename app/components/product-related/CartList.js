@@ -1,17 +1,17 @@
 import { useState } from "react";
 
-export default function CartList({ cartData, manual }) {
+export default function CartList({ cartData }) {
   // console.log(cartData);
   // inside cart list, do all 3 lists. Products, quantity, and price.
 
   return (
-    <div className="full-w">
+    <div>
       <div className="flex flex-col">
         {/* Title can be given prompt */}
         <div className="flex justify-around">
           <h2 className="text-xl"> Products </h2>
           <h2 className="text-xl"> Quantity </h2>
-          <h2 className="text-xl"> Total </h2>
+          <h2 className="text-xl"> Total (CAD)</h2>
         </div>
         <ProductSublist cartData={cartData} />
       </div>
@@ -37,30 +37,49 @@ export function ProductSublist({ cartData }) {
 
 export function Quantity({ product }) {
   const [quantity, setQuantity] = useState(product.quantity);
+  const [value, setValue] = useState(quantity);
+  const dropDown = [
+    { label: "1", value: 1 },
+    { label: "2", value: 2 },
+    { label: "3", value: 3 },
+    { label: "4", value: 4 },
+    { label: "5", value: 5 },
+  ];
 
+  // update quantity whenever it changes on the database.
   useState(() => {
     updateQuantity;
   }, product.quantity);
-
   function updateQuantity() {
     setQuantity(product.quantity);
   }
+
+  function handleOnChange(e) {
+    e.preventDefault(e);
+    setValue(e.target.value);
+    // anytime value changes, {
+    // update database with the value.}
+  }
+
+  // now I can do if value === 3 change...
+  // console.log(quantity);
+  //
+
   return (
     <select
-      value={quantity}
       aria-placeholder="in order 1, 2, 3, 4, or 5 of this product."
       onChange={(e) => {
-        e.preventDefault(e);
-        console.log(e);
-        // if quantity
+        handleOnChange(e);
       }}
-      className="w-1/3 mx-4 text-start text-sm rounded h-fit p-1"
+      className="w-1/4 mx-4 text-start text-sm rounded h-fit p-1"
     >
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option>
+      {dropDown.map((option) => {
+        return (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        );
+      })}
     </select>
   );
 }
@@ -68,11 +87,16 @@ export function Quantity({ product }) {
 // make calculation for total without affecting cost per.
 // store in local storage maybe.
 // access from local storage when paying, and update with orders when i do that.
-export function Total({ cartData }) {
-  const [pricePer, setPricePer] = useState(cartData.price_per);
-  useState(() => {
-    setPricePer(cartData.price_per);
-  }, []);
+export function Total({ product }) {
+  const [pricePer, setPricePer] = useState(product.price_per);
 
+  // update whenever a product changes
+  useState(() => {
+    getPrice;
+  }, [product]);
+
+  function getPrice() {
+    setPricePer(product.price_per);
+  }
   return <p> {pricePer}</p>;
 }
