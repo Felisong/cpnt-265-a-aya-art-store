@@ -1,5 +1,5 @@
 import { createClient } from "@/utils/supabase/client";
-import { redirect } from "next/navigation";
+
 import { useEffect, useState } from "react";
 
 export default function AddToCartBtn({ productData }) {
@@ -9,7 +9,6 @@ export default function AddToCartBtn({ productData }) {
   const [initialCart, setInitialCart] = useState([]);
   const [cartProducts, setCartProducts] = useState(initialCart);
   const [user, setUser] = useState(null);
-  const [errMsg, setErrMsg] = useState(null);
 
   const isInsideArr = (Element) => Element.product_id === product.id;
   const findIndex = cartProducts.findIndex(isInsideArr);

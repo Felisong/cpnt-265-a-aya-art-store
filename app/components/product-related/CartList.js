@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 export default function CartList({ cartData, manual }) {
+  // console.log(cartData);
   // inside cart list, do all 3 lists. Products, quantity, and price.
 
   return (
@@ -26,7 +27,7 @@ export function ProductSublist({ cartData }) {
         return (
           <li key={nextId++} className="my-4 text-sm flex w-full">
             <p className="w-1/3">{product.product_title}</p>
-            <Quantity cartData={cartData} />
+            <Quantity product={product} />
           </li>
         );
       })}
@@ -34,25 +35,26 @@ export function ProductSublist({ cartData }) {
   );
 }
 
-export function Quantity({ cartData }) {
-  console.log(cartData.quantity);
-  const [quantity, setQuantity] = useState(cartData.quantity);
+export function Quantity({ product }) {
+  const [quantity, setQuantity] = useState(product.quantity);
+
   useState(() => {
     updateQuantity;
-  }, cartData.quantity);
+  }, product.quantity);
 
   function updateQuantity() {
-    setQuantity(cartData.quantity);
+    setQuantity(product.quantity);
   }
   return (
     <select
       value={quantity}
       aria-placeholder="in order 1, 2, 3, 4, or 5 of this product."
       onChange={(e) => {
-        e.preventDefault();
+        e.preventDefault(e);
+        console.log(e);
         // if quantity
       }}
-      className="w-1/3 my-4 mx-4 text-start text-sm rounded h-fit p-1"
+      className="w-1/3 mx-4 text-start text-sm rounded h-fit p-1"
     >
       <option>1</option>
       <option>2</option>

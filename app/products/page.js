@@ -7,7 +7,6 @@ import CartDisplay from "../components/product-related/CartDisplay";
 
 export default function Products() {
   const supabase = createClient();
-  const [cart, setCart] = useState([]);
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -22,6 +21,7 @@ export default function Products() {
       console.error(error);
     }
   }
+
   return (
     <>
       <Title text="Products" />
@@ -53,7 +53,7 @@ export default function Products() {
         </div>
       </div>
       <div>
-        <CartDisplay />
+        <CartDisplay products={products} />
       </div>
     </>
   );
