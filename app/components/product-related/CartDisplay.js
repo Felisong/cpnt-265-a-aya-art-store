@@ -38,13 +38,13 @@ export default function CartDisplay(products) {
   // console.log(`real cart: `, cart);
 
   return (
-    <section className="flex flex-col mt-12">
+    <section className="flex flex-col mt-12 items-center">
       <h2 className="text-4xl p-6 text-center"> Cart </h2>
 
       <CartList cartData={cart} />
       <button
         onClick={(e) => {
-          redirect("/check-out");
+          redirect("/checkout");
         }}
         className="bg-white p-2 rounded-full w-fit m-4 mb-2"
       >

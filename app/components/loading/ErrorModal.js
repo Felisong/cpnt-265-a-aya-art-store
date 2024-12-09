@@ -18,14 +18,16 @@ const style = {
   p: 4,
 };
 
-export default function ErrorModal({ text }) {
-  const [open, setOpen] = React.useState(false);
+export default function ErrorModal({ text, trigger }) {
+  const [open, setOpen] = React.useState(true);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  React.useEffect(() => {
+    trigger ? handleOpen : handleClose;
+  });
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
