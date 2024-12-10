@@ -3,20 +3,22 @@ import { Card } from "@mui/material";
 import Cards from "./Cards";
 import Header from "../Title";
 import Title from "../Title";
-import { createClient } from "@supabase/supabase-js";
-import { useEffect, useState } from "react";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
+import { useEffect, useState } from "react";
+import { createClient } from "@/utils/supabase/client";
+
+const supabase = createClient();
 
 export default function ProductSection() {
   const [products, setProducts] = useState([]);
+  const [snippet, setSnippet] = useState([]);
 
   useEffect(() => {
     getProducts();
   }, []);
+  useEffect(() => {
+    preview();
+  }, [products]);
 
   async function getProducts() {
     try {
@@ -26,21 +28,17 @@ export default function ProductSection() {
       console.error("couldn't fetch data", error);
     }
   }
+  function preview() {
+    const previewArr = products.slice(0, 4);
+    setSnippet(previewArr);
+  }
 
-  const sample = [];
-  sample.push(products[0]);
-  sample.push(products[1]);
-  sample.push(products[2]);
-  sample.push(products[3]);
-
-  // GET 4 CARDS TO DISPLAY HERE,
-  // START ON USER AUTH TOMORROW.
   return (
-    <div className="mt-24 w-full flex flex-col  mx-auto">
+    <div className="mt-24 mb-0 w-full mx-auto">
       <Title text="Products" />
       <div className="flex m-4 justify-center">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {products.map((product) => (
+          {snippet.map((product) => (
             <Cards
               key={product.id}
               customize={{
@@ -53,6 +51,7 @@ export default function ProductSection() {
                 image_alt_one: product.image_alt_one,
                 image_alt_two: product.image_alt_two,
                 image_alt_three: product.image_alt_three,
+                price: product.price,
               }}
             />
           ))}
