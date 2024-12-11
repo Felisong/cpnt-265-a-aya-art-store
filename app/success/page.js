@@ -35,10 +35,10 @@ export function SuccessContent({ stripeSession }) {
   );
 }
 
-export default function Success() {
+export default function Success(stripeSession) {
   return (
     <Suspense fallback={<Loading />}>
-      <SuccessContent />
+      <SuccessContent stripeSession={stripeSession} />
     </Suspense>
   );
 }
