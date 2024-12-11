@@ -10,7 +10,7 @@ export function Loading() {
   return <p> Loading Order details...</p>;
 }
 
-export default function Success({ stripeSession }) {
+export function SuccessContent({ stripeSession }) {
   // useSearchParams for query similar urls.
   const searchParams = useSearchParams();
   const sessionId = searchParams.get("session_id");
@@ -30,9 +30,15 @@ export default function Success({ stripeSession }) {
   return (
     <div>
       <h1>Payment Completed</h1>
-      <Suspense fallback={<Loading />}>
-        {!loading && <OrderSummary session={session} />}
-      </Suspense>
+      {!loading && <OrderSummary session={session} />}
     </div>
+  );
+}
+
+export default function Success() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <SuccessContent />
+    </Suspense>
   );
 }
