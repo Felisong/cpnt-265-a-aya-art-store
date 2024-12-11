@@ -6,7 +6,11 @@ import { getServerSideProps } from "./actions";
 import { useSearchParams } from "next/navigation";
 import OrderSummary from "../components/product-related/OrderSummary";
 
-const Success = ({ stripeSession }) => {
+export function Loading() {
+  return <p> Loading Order details...</p>;
+}
+
+export default function Success({ stripeSession }) {
   // useSearchParams for query similar urls.
   const searchParams = useSearchParams();
   const sessionId = searchParams.get("session_id");
@@ -16,6 +20,7 @@ const Success = ({ stripeSession }) => {
   const sessionFunction = async () => {
     const stripeData = await getServerSideProps(sessionId);
     setSession(stripeData);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -25,15 +30,9 @@ const Success = ({ stripeSession }) => {
   return (
     <div>
       <h1>Payment Completed</h1>
-      <Suspense fallback={<LoadingMini />}>
-        <OrderSummary session={session} />
+      <Suspense fallback={<Loading />}>
+        {!loading && <OrderSummary session={session} />}
       </Suspense>
     </div>
   );
-};
-
-export default Success;
-
-export function LoadingMini() {
-  return <p> Loading </p>;
 }
