@@ -1,6 +1,6 @@
 // pages/success.js
 "use client";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 import { getServerSideProps } from "./actions";
 import { useSearchParams } from "next/navigation";
@@ -11,6 +11,7 @@ const Success = ({ stripeSession }) => {
   const searchParams = useSearchParams();
   const sessionId = searchParams.get("session_id");
   const [session, setSession] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const sessionFunction = async () => {
     const stripeData = await getServerSideProps(sessionId);
@@ -24,9 +25,15 @@ const Success = ({ stripeSession }) => {
   return (
     <div>
       <h1>Payment Completed</h1>
-      <OrderSummary session={session} />
+      <Suspense fallback={<LoadingMini />}>
+        <OrderSummary session={session} />
+      </Suspense>
     </div>
   );
 };
 
 export default Success;
+
+export function LoadingMini() {
+  return <p> Loading </p>;
+}

@@ -6,7 +6,6 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
 });
 
 export async function POST(request) {
-  console.log("do i appear?");
   if (request.method === "POST") {
     // when requesting, be sure to submit the data i receive from my cart.
     const body = await request.json();
@@ -39,7 +38,7 @@ export async function POST(request) {
       success_url: `${body.returnUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${returnUrl}/cancel`,
     });
-    // console.log(session.id);
+
     return NextResponse.json({ sessionId: session.id });
   }
 

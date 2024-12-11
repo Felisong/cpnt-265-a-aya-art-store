@@ -63,7 +63,7 @@ export default function Checkout() {
 
   const handleCheckout = async () => {
     const stripe = await stripePromise;
-    console.log(products);
+
     const response = await fetch("/api/checkout-sessions/", {
       method: "POST",
       headers: {
@@ -78,7 +78,6 @@ export default function Checkout() {
     });
 
     const { sessionId } = await response.json();
-    // console.log(products);
 
     await stripe.redirectToCheckout({ sessionId });
   };
