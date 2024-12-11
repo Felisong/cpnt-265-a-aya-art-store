@@ -12,6 +12,7 @@ import AddToCartBtn from "./AddToCartBtn";
 
 export default function Cards({ customize }) {
   // possible inputs
+
   const cardData = {
     title: customize.title,
     id: customize.id,

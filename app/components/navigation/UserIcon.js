@@ -6,13 +6,13 @@ export default function UserIcon() {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-gray-300 hover:bg-pink-950">
+        <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-gray-300 hover:bg-backDropPink ">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth="1.5"
-            className="size-12 stroke-backDropPink"
+            className="size-12 stroke-white hover:stroke-backDropDark"
           >
             <path
               strokeLinecap="round"

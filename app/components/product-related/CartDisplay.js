@@ -9,12 +9,9 @@ export default function CartDisplay(products) {
   const [cart, setCart] = useState(initialCart);
   const supabase = createClient();
 
-  // find time for the array to update when i add or disadd to the database. like i do in the cards
   useEffect(() => {
-    setInterval(() => {
-      getCart();
-    }, 1000);
-  }, []);
+    getCart();
+  }, [cart]);
   useEffect(() => {
     updateCart();
   }, [initialCart]);
@@ -34,8 +31,6 @@ export default function CartDisplay(products) {
   function updateCart() {
     setCart(initialCart);
   }
-  // console.log(`initial cart: `, initialCart);
-  // console.log(`real cart: `, cart);
 
   return (
     <section className="flex flex-col mt-12 items-center">

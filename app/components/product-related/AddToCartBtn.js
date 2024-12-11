@@ -17,7 +17,6 @@ export default function AddToCartBtn({ productData }) {
   const isInsideArr = (Element) => Element.product_id === product.id;
   const findIndex = cartProducts.findIndex(isInsideArr);
 
-  // TODO: ADD AN IF CONDITION FOR USER TO NOT SEE DATABASE IF NOT SIGNED IN. maybe ask ash for how to implement this?
   useEffect(() => {
     getUser();
     getCart();

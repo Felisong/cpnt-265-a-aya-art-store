@@ -8,7 +8,7 @@ export default function Navigation() {
   const nav = [
     { name: "Home", href: "/", current: false, id: 1 },
     { name: "Products", href: "/products", current: false, id: 2 },
-    { name: "Check Out", href: "/check-out", current: false, id: 3 },
+    { name: "Check Out", href: "/checkout", current: false, id: 3 },
     { name: "Contact", href: "/contact", current: false, id: 4 },
   ];
   function classNames(...classes) {
@@ -32,7 +32,7 @@ export default function Navigation() {
                 className={classNames(
                   item.current
                     ? "bg-darkBlue text-white px-2 text-xl w-30"
-                    : "text-backDropPink text-xl hover:bg-backDropPink hover:text-black",
+                    : "text-white text-xl hover:bg-backDropPink hover:text-black",
                   "rounded-md py-2 px-1"
                 )}
               >

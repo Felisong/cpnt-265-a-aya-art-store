@@ -12,21 +12,25 @@ export default function Products() {
   const supabase = createClient();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
   const repeat = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   useEffect(() => {
     getProducts();
   }, []);
 
+  // TODO: SET CART TO ONLY DISPLAY IF USER ID MATCHES WHAT S IN THE CART.
   async function getProducts() {
     try {
       const { data } = await supabase.from("products").select();
       setProducts(data);
       setLoading(false);
+      setError("");
     } catch (error) {
       console.error(error);
+      setLoading(true);
       alert("could not load products.");
-      window.location.reload();
+      setError("could not load products.");
     }
   }
 
@@ -34,7 +38,6 @@ export default function Products() {
     return (
       <>
         <Title text="Products" />
-
         <div className="flex m-4 justify-center">
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             {products.length > 0 ? (
@@ -70,6 +73,7 @@ export default function Products() {
     return (
       <>
         <Title text="Products" />
+        <p> {error ? error : error}</p>
         <div className="flex m-4 justify-center">
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             {repeat.map((item) => (
