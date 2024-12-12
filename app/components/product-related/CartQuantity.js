@@ -25,19 +25,13 @@ export default function CartQuantity({ product }) {
 
     if (error) {
       console.error("error updating database,", error);
-    } else {
-      console.log("successful, go check.");
     }
   }
-
-  // now I can do if value === 3 change...
-  // console.log(quantity);
-  //
 
   return (
     <select
       aria-placeholder="in order 1, 2, 3, 4, or 5 of this product."
-      value={product.quantity}
+      value={product.quantity ? product.quantity : 1}
       onChange={(e) => {
         handleOnChange(e);
       }}

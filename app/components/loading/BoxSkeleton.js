@@ -2,7 +2,7 @@ import * as React from "react";
 import Skeleton from "@mui/material/Skeleton";
 import Box from "@mui/material/Box";
 
-export default function BoxSkeleton() {
+export default function BoxSkeleton({ dimensions }) {
   return (
     <Box
       sx={{
@@ -17,8 +17,8 @@ export default function BoxSkeleton() {
         sx={{ borderRadius: "12px" }}
         className="bg-backDropPink m-2"
         variant="rectangular"
-        width={250}
-        height={350}
+        width={dimensions.width}
+        height={dimensions.height}
       />
     </Box>
   );

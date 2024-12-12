@@ -12,4 +12,5 @@ My name is Carolina. I am a web dev student trying to create an operational e-co
 
 - [stackoverflow](https://stackoverflow.com/questions/62386582/environment-variables-not-working-next-js-9-4-4)
 - [supabase docs](https://supabase.com/docs/reference/javascript/introduction)
-- [chatgpt for questions](https://chatgpt.com) -[heroicons] (https://heroicons.com)
+- [chatgpt for questions](https://chatgpt.com)
+- [heroicons] (https://heroicons.com)

@@ -19,7 +19,6 @@ export default function Products() {
     getProducts();
   }, []);
 
-  // TODO: SET CART TO ONLY DISPLAY IF USER ID MATCHES WHAT S IN THE CART.
   async function getProducts() {
     try {
       const { data } = await supabase.from("products").select();
@@ -65,7 +64,7 @@ export default function Products() {
           </div>
         </div>
         <div className="bg-backDropPink flex flex-col items-center pb-8">
-          <CartDisplay products={products} />
+          <CartDisplay />
         </div>
       </>
     );
@@ -79,7 +78,12 @@ export default function Products() {
             {repeat.map((item) => (
               <div key={item} className="self-center">
                 {" "}
-                <BoxSkeleton />
+                <BoxSkeleton
+                  dimensions={{
+                    height: 450,
+                    width: 330,
+                  }}
+                />
               </div>
             ))}
           </div>
