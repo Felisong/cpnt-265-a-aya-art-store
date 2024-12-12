@@ -23,16 +23,16 @@ export default function OrderSummary({ session }) {
     return (
       <div>
         <h2>Order Summary</h2>
-        <p>Order ID: {stripeSession.stripeSession.id}</p>
-        <p> Status: {stripeSession.stripeSession.paymentStatus}</p>
-        <p>Total Amount: ${stripeSession.stripeSession.amountTotal / 100}</p>
+        <p>Order ID: {stripeSession.id}</p>
+        <p> Status: {stripeSession.paymentStatus}</p>
+        <p>Total Amount: ${stripeSession.amountTotal / 100}</p>
         <p>
           Shipping Address:{" "}
-          {formatAddress(stripeSession.stripeSession.customerDetails.address)}
+          {formatAddress(stripeSession.customerDetails.address)}
         </p>
         <div>
           <h3>Line Items</h3>
-          {stripeSession.stripeSession.lineItems.data.map((item) => (
+          {stripeSession.lineItems.data.map((item) => (
             <div key={item.id}>
               <p>{item.description}</p>
               <p>Quantity: {item.quantity}</p>

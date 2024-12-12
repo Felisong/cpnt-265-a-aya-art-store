@@ -9,7 +9,6 @@ export async function POST(request) {
   if (request.method === "POST") {
     // when requesting, be sure to submit the data i receive from my cart.
     const body = await request.json();
-    console.log(body);
 
     const { cartItems, returnUrl, userId } = body;
 
@@ -31,6 +30,9 @@ export async function POST(request) {
       payment_method_types: ["card"],
       client_reference_id: userId,
       line_items,
+      metadata: {
+        user_id: userId,
+      },
       mode: "payment",
       shipping_address_collection: {
         allowed_countries: ["US", "CA"],

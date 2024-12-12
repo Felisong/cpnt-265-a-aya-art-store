@@ -7,10 +7,22 @@ import CartDisplay from "../components/product-related/CartDisplay";
 import { redirect } from "next/navigation";
 import ErrorModal from "../components/loading/ErrorModal";
 import BoxSkeleton from "../components/loading/BoxSkeleton";
+import AutocompleteTag from "../components/product-related/AutoCompleteTag";
+import Link from "next/link";
+
+const tags = [
+  { label: "keychain", id: 1 },
+  { label: "acrylic-charm", id: 2 },
+  { label: "phone-accessory", id: 3 },
+  { label: "sticker", id: 4 },
+  { label: "original", id: 5 },
+  { label: "stationary", id: 6 },
+];
 
 export default function Products() {
   const supabase = createClient();
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const repeat = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -65,6 +77,11 @@ export default function Products() {
             </div>
           </div>
           <div className="bg-backDropPink flex flex-col items-center pb-8 lg:w-1/3 lg:h-fit lg:rounded-3xl lg:m-4">
+            {/* <div>
+              {tags.map((tag) => (
+                <Link>meow</Link>
+              ))}
+            </div> */}
             <CartDisplay />
             <button
               onClick={(e) => {

@@ -37,8 +37,8 @@ export async function signup(formData) {
 
   if (error) {
     redirect("/error");
+  } else {
+    revalidatePath("/", "layout");
+    redirect("/validate");
   }
-
-  revalidatePath("/", "layout");
-  redirect("/dashboard");
 }
