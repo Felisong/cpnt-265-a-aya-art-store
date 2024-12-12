@@ -53,14 +53,6 @@ export default function CartDisplay() {
         <h2 className="text-4xl p-6 text-center"> Cart </h2>
 
         <CartList cartData={cart} />
-        <button
-          onClick={(e) => {
-            redirect("/checkout");
-          }}
-          className="bg-white p-2 rounded-full w-fit m-4 mb-2"
-        >
-          Go to Checkout.
-        </button>
       </section>
     );
   }

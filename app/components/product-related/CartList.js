@@ -10,9 +10,9 @@ export default function CartList({ cartData }) {
       <div className="flex flex-col">
         {/* Title can be given prompt */}
         <div className="flex justify-around">
-          <h2 className="text-xl"> Products </h2>
-          <h2 className="text-xl"> Quantity </h2>
-          <h2 className="text-xl"> Total (CAD)</h2>
+          <h2 className="text-xl md:text-2xl lg:text-3xl"> Products </h2>
+          <h2 className="text-xl md:text-2x lg:text-3xl"> Quantity </h2>
+          <h2 className="text-xl md:text-2x lg:text-3xl"> Total (CAD)</h2>
         </div>
         <ProductSublist cartData={cartData} />
       </div>

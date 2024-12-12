@@ -84,9 +84,14 @@ export default function Checkout() {
 
   return (
     <div>
-      <div className="bg-backDropPink p-20">
+      <div className="bg-backDropPink py-20">
         <CartDisplay />
-        <button onClick={handleCheckout}>Proceed to Checkout</button>
+        <button
+          onClick={handleCheckout}
+          className="bg-buttonPurple text-white p-4 text-lg rounded-full w-fit m-6 mb-4 flex mx-auto my-10 hover:bg-purple-950 hover:text-white transition"
+        >
+          Proceed to Checkout
+        </button>
       </div>
     </div>
   );

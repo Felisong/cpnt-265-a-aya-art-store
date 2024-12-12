@@ -37,34 +37,44 @@ export default function Products() {
     return (
       <>
         <Title text="Products" />
-        <div className="flex m-4 justify-center">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {products.length > 0 ? (
-              products.map((product) => (
-                <Cards
-                  key={product.id}
-                  customize={{
-                    title: product.title,
-                    description: product.description,
-                    extra: product.extra,
-                    image_one: product.image_one,
-                    image_two: product.image_two,
-                    image_three: product.image_three,
-                    image_alt_one: product.image_alt_one,
-                    image_alt_two: product.image_alt_two,
-                    image_alt_three: product.image_alt_three,
-                    id: product.id,
-                    price: product.price,
-                  }}
-                />
-              ))
-            ) : (
-              <p> Loading Cards...</p>
-            )}
+        <div className="flex flex-col lg:flex-row">
+          <div className="flex m-4 justify-center lg:justify-start lg:w-2/2 mb-20">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {products.length > 0 ? (
+                products.map((product) => (
+                  <Cards
+                    key={product.id}
+                    customize={{
+                      title: product.title,
+                      description: product.description,
+                      extra: product.extra,
+                      image_one: product.image_one,
+                      image_two: product.image_two,
+                      image_three: product.image_three,
+                      image_alt_one: product.image_alt_one,
+                      image_alt_two: product.image_alt_two,
+                      image_alt_three: product.image_alt_three,
+                      id: product.id,
+                      price: product.price,
+                    }}
+                  />
+                ))
+              ) : (
+                <p> Loading Cards...</p>
+              )}
+            </div>
           </div>
-        </div>
-        <div className="bg-backDropPink flex flex-col items-center pb-8">
-          <CartDisplay />
+          <div className="bg-backDropPink flex flex-col items-center pb-8 lg:w-1/3 lg:h-fit lg:rounded-3xl lg:m-4">
+            <CartDisplay />
+            <button
+              onClick={(e) => {
+                redirect("/checkout");
+              }}
+              className="bg-buttonPurple text-white p-4 text-lg rounded-full w-fit m-6 mb-4 flex mx-auto my-10 hover:bg-purple-950 hover:text-white transition"
+            >
+              Go to Checkout Page.
+            </button>
+          </div>
         </div>
       </>
     );
@@ -74,7 +84,7 @@ export default function Products() {
         <Title text="Products" />
         <p> {error ? error : error}</p>
         <div className="flex m-4 justify-center">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-20">
             {repeat.map((item) => (
               <div key={item} className="self-center">
                 {" "}

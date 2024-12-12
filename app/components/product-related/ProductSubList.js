@@ -21,7 +21,10 @@ export default function ProductSublist({ cartData }) {
     <ul key={cartData.product_id} className="mx-4 ">
       {cartData.map((product) => {
         return (
-          <li key={nextId++} className="my-4 text-sm flex w-full ">
+          <li
+            key={nextId++}
+            className="my-4 text-sm flex w-full md:text-lg lg:text-xl"
+          >
             <p className="w-1/3">{product.product_title}</p>
             <CartQuantity product={product} />
             <Total product={product} />
