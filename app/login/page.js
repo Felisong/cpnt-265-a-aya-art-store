@@ -87,19 +87,38 @@ export default function LoginPage() {
         ) : (
           <p className="text-sm text-red-900"> {passwordErr}</p>
         )}
+
+        {isLoggingIn ? (
+          <button
+            className="p-2 bg-buttonPurple m-3 mt-4 text-white rounded-3xl "
+            disabled={!isFormValid}
+            formAction={login}
+          >
+            Log in
+          </button>
+        ) : (
+          <button
+            className="p-2 bg-buttonPurple m-3  text-white rounded-3xl "
+            disabled={!isFormValid}
+            formAction={signup}
+          >
+            Sign up
+          </button>
+        )}
+        {isLoggingIn ? (
+          <p className="text-center text-lg"> Want to create an account?</p>
+        ) : (
+          <p className="text-center text-lg"> Want to log in?</p>
+        )}
         <button
-          className="p-2 bg-buttonPurple m-3 mt-4 text-white rounded-3xl "
-          disabled={!isFormValid}
-          formAction={login}
+          className="text-buttonPurple bg-white rounded-3xl w-fit px-2 flex mx-auto mt-2 hover:bg-buttonPurple hover:text-white"
+          onClick={(e) => {
+            e.preventDefault();
+            isLoggingIn ? setIsLoggingIn(false) : setIsLoggingIn(true);
+          }}
         >
-          Log in
-        </button>
-        <button
-          className="p-2 bg-buttonPurple m-3  text-white rounded-3xl "
-          disabled={!isFormValid}
-          formAction={signup}
-        >
-          Sign up
+          {" "}
+          Click here.{" "}
         </button>
       </form>
     </div>
