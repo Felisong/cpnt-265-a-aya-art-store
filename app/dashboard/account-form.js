@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 
 export default function AccountForm({ user }) {
   const supabase = createClient();
+  const [email, setEmail] = useState(null);
   const [loading, setLoading] = useState(true);
   const [fullname, setFullname] = useState(null);
   const [username, setUsername] = useState(null);
@@ -15,6 +16,12 @@ export default function AccountForm({ user }) {
   const getProfile = useCallback(async () => {
     try {
       setLoading(true);
+      try {
+        const email = await user;
+        setEmail(email);
+      } catch (error) {
+        console.error("no email.");
+      }
 
       const { data, error, status } = await supabase
         .from("profiles")
@@ -25,7 +32,7 @@ export default function AccountForm({ user }) {
       if (error && status !== 406) {
         throw error;
       }
-
+      console.log(data);
       if (data) {
         setFullname(data.full_name);
         setUsername(data.username);
@@ -66,53 +73,68 @@ export default function AccountForm({ user }) {
   }
 
   return (
-    <div className="form-widget">
-      <div>
-        <label htmlFor="email">Email</label>
-        <input id="email" type="text" value={user?.email} disabled />
+    <div>
+      {/* greeting section */}
+      <div className="bg-[url('/gemini-generated-header.png')] flex text-6xl font-bold text-black bg-cover p-8 py-20 bg-no-repeat md:py-32 md:text-7xl lg:py-52 lg:text-8xl">
+        <h1>
+          {" "}
+          Hello{" "}
+          {fullname || username || email
+            ? `${fullname || username || email}`
+            : "User."}
+        </h1>
       </div>
-      <div>
-        <label htmlFor="fullName">Full Name</label>
-        <input
-          id="fullName"
-          type="text"
-          value={fullname || ""}
-          onChange={(e) => setFullname(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="username">Username</label>
-        <input
-          id="username"
-          type="text"
-          value={username || ""}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="website">Website</label>
-        <input
-          id="website"
-          type="url"
-          value={website || ""}
-          onChange={(e) => setWebsite(e.target.value)}
-        />
-      </div>
+      <div className="form-widget my-16 text-lg m-8 rounded-3xl bg-backDropPink p-4">
+        <div className="flex flex-col items-start p-4">
+          <label htmlFor="email">Email</label>
+          <input
+            id="email"
+            type="text"
+            value={user?.email}
+            className="rounded-xl w-full p-2 mb-4"
+            disabled
+          />
+          <label htmlFor="fullName">Full Name</label>
+          <input
+            id="fullName"
+            type="text"
+            className="rounded-xl w-full p-2 mb-4"
+            value={fullname || ""}
+            onChange={(e) => setFullname(e.target.value)}
+          />
+          <label htmlFor="username">Username</label>
+          <input
+            id="username"
+            type="text"
+            className="rounded-xl w-full p-2 mb-4"
+            value={username || ""}
+            onChange={(e) => setUsername(e.target.value)}
+          />
 
-      <div>
-        <button
-          className="button primary block"
-          onClick={() =>
-            updateProfile({ fullname, username, website, avatar_url })
-          }
-          disabled={loading}
-        >
-          {loading ? "Loading ..." : "Update"}
-        </button>
-      </div>
+          <label htmlFor="website">Website</label>
+          <input
+            id="website"
+            type="url"
+            className="rounded-xl w-full p-2 mb-4"
+            value={website || ""}
+            onChange={(e) => setWebsite(e.target.value)}
+          />
+        </div>
+        <div>
+          <button
+            className="button primary block p-2 m-2 bg-buttonPurple rounded-xl text-white"
+            onClick={() =>
+              updateProfile({ fullname, username, website, avatar_url })
+            }
+            disabled={loading}
+          >
+            {loading ? "Loading ..." : "Update"}
+          </button>
+        </div>
 
-      <div>
-        <LogoutButton stylize="p-2 m-2 bg-buttonPurple rounded-xl" />
+        <div>
+          <LogoutButton stylize="p-2 m-2 bg-buttonPurple rounded-xl text-white" />
+        </div>
       </div>
     </div>
   );

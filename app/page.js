@@ -11,7 +11,7 @@ export default function Home() {
       <ImageCarousel />
       <div>
         <ProductSection />
-        <button className="bg-strongPink p-4 text-2xl font-bold rounded-full flex mx-auto mb-20">
+        <button className="bg-buttonPurple text-white p-4 text-2xl font-bold rounded-full flex mx-auto mb-20">
           Shop Now!
         </button>
       </div>
