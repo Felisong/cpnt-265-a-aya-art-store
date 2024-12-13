@@ -18,7 +18,7 @@ export default function AccountForm({ user }) {
       setLoading(true);
       try {
         const email = await user;
-        setEmail(email);
+        setEmail(email.email);
       } catch (error) {
         console.error("no email.");
       }
@@ -75,8 +75,8 @@ export default function AccountForm({ user }) {
   return (
     <div>
       {/* greeting section */}
-      <div className="bg-[url('/gemini-generated-header.png')] flex text-6xl font-bold text-black bg-cover p-8 py-20 bg-no-repeat md:py-32 md:text-7xl lg:py-52 lg:text-8xl">
-        <h1>
+      <div className="bg-[url('/gemini-generated-header.png')] flex text-4xl font-bold text-black bg-cover p-8 py-20 md:py-32 md:text-7xl lg:py-52 lg:text-8xl w-full">
+        <h1 className="max-w-[80vw] break-words">
           {" "}
           Hello{" "}
           {fullname || username || email
