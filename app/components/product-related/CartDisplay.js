@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import Title from "../Title";
 import CartList from "./CartList";
 import { redirect } from "next/dist/server/api-utils";
+import { Loading } from "@/app/success/page";
+import CircularLoading from "./CircularLoading";
 
 export default function CartDisplay() {
   const [cart, setCart] = useState([]);
@@ -46,7 +48,13 @@ export default function CartDisplay() {
   }
 
   if (loading) {
-    return <p> Loading.. </p>;
+    return (
+      <div className="p-4">
+        {" "}
+        <CircularLoading />
+        <Loading />
+      </div>
+    );
   } else {
     return (
       <section className="flex flex-col mt-12 items-center">
