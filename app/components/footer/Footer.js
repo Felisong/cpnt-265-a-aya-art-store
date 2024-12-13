@@ -1,10 +1,11 @@
 "use client";
 import Link from "next/link";
-import Logo from "./Logo";
-import Hamburger from "./Hamburger";
-import UserIcon from "./UserIcon";
+import Logo from "../navigation/Logo";
+import UserIcon from "../navigation/UserIcon";
 
-export default function Navigation() {
+export default function Footer() {
+  const year = new Date().getFullYear();
+
   const nav = [
     { name: "Home", href: "/", current: false, id: 1 },
     { name: "Products", href: "/products", current: false, id: 2 },
@@ -16,14 +17,17 @@ export default function Navigation() {
   }
 
   return (
-    <header className="bg-backDropDark flex items-center justify-between pb-4">
-      <div className="p-4">
-        <Logo width={"w-40"} />
+    <header className="bg-backDropDark flex items-center justify-around pt-4">
+      <div className="p-4 ">
+        <Logo width={"w-48"} />
+        <p className="text-white mt-12 pl-4">All Rights Reserved {year} </p>
       </div>
-      <ul className="mx-4 flex items-center">
+      <ul className="mx-4 flex flex-col m mb-4 items-start md:items-center md:text-center">
         <li>
-          <div className=" space-x-4 w-fit  hidden md:flex px-2">
-            {/* GET NAVIGATION WORKING PRIO */}
+          <UserIcon />
+        </li>
+        <li>
+          <div className="  w-fit flex flex-col px-2">
             {nav.map((item) => (
               <Link
                 key={item.id}
@@ -40,10 +44,6 @@ export default function Navigation() {
               </Link>
             ))}
           </div>
-        </li>
-        <UserIcon />
-        <li>
-          <Hamburger />
         </li>
       </ul>
     </header>

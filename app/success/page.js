@@ -27,12 +27,14 @@ export function SuccessContent({ stripeSession }) {
     getUser();
   }, []);
 
+  // TODO: work on clearing cart and uploading data tomorrow. The problem is on orders
+  // TODO: orderupload is where its getting stuck. consider checking if the id im putting in is a valid uuid perhaps.
   useEffect(() => {
     if (session) {
       if (session.paymentStatus === "paid") {
-        clearCart(session);
-        handleOrderUpload(session);
-        setErrMsg("");
+        // clearCart(session);
+        // handleOrderUpload(session);
+        // setErrMsg("");
       } else {
         setErrMsg("There was Something Strange With Payment!!");
       }
@@ -48,6 +50,7 @@ export function SuccessContent({ stripeSession }) {
     } = await supabase.auth.getUser();
     setUser(user);
   }
+
   // get session data.
   const sessionFunction = async () => {
     try {
@@ -61,7 +64,6 @@ export function SuccessContent({ stripeSession }) {
   };
   // clear database cart
   async function clearCart(session) {
-    console.log(session);
     const { data, error } = await (await supabase)
       .from("cart_items")
       .delete()
@@ -69,6 +71,7 @@ export function SuccessContent({ stripeSession }) {
         user_id: user.id,
         product_id: session.product_id,
       });
+    console.log(`cart cleared`);
     if (error) {
       console.error("data unable to delete.");
     }
@@ -76,9 +79,10 @@ export function SuccessContent({ stripeSession }) {
   // database submit.
   async function handleOrderUpload(session) {
     try {
-      const address = await addressUpload(session);
+      // const address = await addressUpload(session);
       const orderId = await orderUpload(session);
-      const orderItems = await orderItemsUpload(orderId);
+
+      // const orderItems = await orderItemsUpload(orderId);
 
       console.log(`order processed! : `, { orderId, orderItems });
     } catch (error) {
@@ -110,30 +114,33 @@ export function SuccessContent({ stripeSession }) {
   }
 
   async function orderUpload(session) {
+    const number = session.amountTotal / 100;
+    const totalPrice = number.toFixed(2);
     const { data, error } = await supabase
       .from("orders")
       .insert([
         {
           user_id: user.id,
-          total_price: session.amountTotal / 100,
+          total_price: totalPrice,
           status: "Awaiting Delivery",
         },
       ])
       .select();
-    console.log("successful orders upload");
+
     if (error) {
       setErrMsg("unable to upload to orders");
     }
     if (data && data.length > 0) {
+      console.log("successful orders upload");
+      console.log(data[0].id);
       return data[0].id;
     } else {
       throw new Error("Order upload failed. No data returned.");
     }
   }
-
   async function orderItemsUpload(orderId) {
     const lineItems = session.lineItems.data.map((product) => ({
-      order_id: orderId, // Use the generated order_id
+      order_id,
       product_id: product.id,
       product_name: product.name,
       quantity: product.quantity,
@@ -153,7 +160,6 @@ export function SuccessContent({ stripeSession }) {
     }
   }
 
-  // console.log(session.customerDetails.address);
   return (
     <div>
       <h1>Payment Completed!</h1>
