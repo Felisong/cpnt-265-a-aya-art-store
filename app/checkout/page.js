@@ -83,8 +83,8 @@ export default function Checkout() {
   };
 
   return (
-    <div>
-      <div className="bg-backDropPink py-20">
+    <div className="h-[75vh]">
+      <div className="bg-backDropPink py-20 h-full">
         <CartDisplay />
         <button
           onClick={handleCheckout}
