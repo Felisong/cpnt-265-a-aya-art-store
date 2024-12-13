@@ -4,6 +4,7 @@ export default function ErrorPage() {
       <div className="absolute inset-0 bg-black opacity-30"></div>
       <div className="relative z-10  bg-backDropPink p-8 text-lg rounded shadow-lg flex flex-col">
         <p>Sorry, something went wrong. TBA</p>
+        <p> Please check your login credentials and try again. </p>
       </div>
     </div>
   );

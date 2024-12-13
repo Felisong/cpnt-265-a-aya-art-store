@@ -59,14 +59,18 @@ export default function LoginPage() {
           id="email"
           name="email"
           type="email"
-          className="text-black"
+          className={`text-black border-2 p-1 rounded ${
+            !isEmailValid
+              ? "border-red-500 active:border-red-500 focus:border-red-500  focus:ring-red-500"
+              : "border-gray-300"
+          }`}
           onChange={(e) => {
             EmailValidation(e);
           }}
           required
         />
         {!isEmailValid ? (
-          <p className="text-sm text-red-900"> {emailErr}</p>
+          <p className={`text-sm text-red-900 `}> {emailErr}</p>
         ) : (
           <p className="text-sm text-red-900"> {emailErr}</p>
         )}
@@ -75,7 +79,11 @@ export default function LoginPage() {
           id="password"
           name="password"
           type="password"
-          className="text-black"
+          className={`text-black border-2 p-1 rounded ${
+            !isPwValid
+              ? "border-red-500 active:border-red-500 focus:border-red-500  focus:ring-red-500"
+              : "border-gray-300"
+          }`}
           minLength={8}
           onChange={(e) => {
             passwordValidation(e);
@@ -90,7 +98,7 @@ export default function LoginPage() {
 
         {isLoggingIn ? (
           <button
-            className="p-2 bg-buttonPurple m-3 mt-4 text-white rounded-3xl "
+            className="p-2 bg-buttonPurple m-3 mt-4 text-white rounded-3xl disabled:bg-slate-600 hover:bg-purple-900"
             disabled={!isFormValid}
             formAction={login}
           >
@@ -98,7 +106,7 @@ export default function LoginPage() {
           </button>
         ) : (
           <button
-            className="p-2 bg-buttonPurple m-3  text-white rounded-3xl "
+            className="p-2 bg-buttonPurple m-3  text-white rounded-3xl disabled:bg-slate-600 hover:bg-purple-900"
             disabled={!isFormValid}
             formAction={signup}
           >
