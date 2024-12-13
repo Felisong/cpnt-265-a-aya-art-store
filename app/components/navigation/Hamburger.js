@@ -34,7 +34,7 @@ export default function Hamburger() {
   const navItems = [
     { name: "Home", href: "/", current: false, id: 1 },
     { name: "Products", href: "/products", current: false, id: 2 },
-    { name: "Check Out", href: "/check-out", current: false, id: 3 },
+    { name: "Check Out", href: "/checkout", current: false, id: 3 },
     { name: "Contact", href: "/contact", current: false, id: 4 },
   ];
 
