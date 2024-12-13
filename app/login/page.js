@@ -2,6 +2,8 @@
 import Cookies from "js-cookie";
 import { login, signup } from "./actions";
 import { useEffect, useState } from "react";
+import CircularLoading from "../components/product-related/CircularLoading";
+import LoadingBackDrop from "../components/loading/LoadingBackdrop";
 
 export default function LoginPage() {
   const [email, setEmail] = useState(null);
@@ -12,6 +14,7 @@ export default function LoginPage() {
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [isPwValid, setIsPwValid] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   // errors
   const [emailErr, setEmailErr] = useState("");
   const [passwordErr, setPasswordErr] = useState("");
@@ -52,6 +55,7 @@ export default function LoginPage() {
   // console.log(isFormValid);
   return (
     <div className="bg-[url('/gemini-generated-background.png')] bg-cover bg-center h-[75vh] flex items-center justify-center relative">
+      {isLoading ? <LoadingBackDrop /> : <></>}
       <div className="absolute inset-0 bg-black opacity-30"></div>
       <form className="relative z-10  bg-backDropPink p-8 text-lg rounded shadow-lg flex flex-col w-4/5 md:w-1/3">
         <label htmlFor="email">Email:</label>
@@ -59,11 +63,7 @@ export default function LoginPage() {
           id="email"
           name="email"
           type="email"
-          className={`text-black border-2 p-1 rounded ${
-            !isEmailValid
-              ? "border-red-500 active:border-red-500 focus:border-red-500  focus:ring-red-500"
-              : "border-gray-300"
-          }`}
+          className={`text-black border-2 p-1 rounded`}
           onChange={(e) => {
             EmailValidation(e);
           }}
@@ -79,11 +79,7 @@ export default function LoginPage() {
           id="password"
           name="password"
           type="password"
-          className={`text-black border-2 p-1 rounded ${
-            !isPwValid
-              ? "border-red-500 active:border-red-500 focus:border-red-500  focus:ring-red-500"
-              : "border-gray-300"
-          }`}
+          className={`text-black border-2 p-1 rounded `}
           minLength={8}
           onChange={(e) => {
             passwordValidation(e);
@@ -101,6 +97,9 @@ export default function LoginPage() {
             className="p-2 bg-buttonPurple m-3 mt-4 text-white rounded-3xl disabled:bg-slate-600 hover:bg-purple-900"
             disabled={!isFormValid}
             formAction={login}
+            onClick={() => {
+              setIsLoading(true);
+            }}
           >
             Log in
           </button>
@@ -109,6 +108,9 @@ export default function LoginPage() {
             className="p-2 bg-buttonPurple m-3  text-white rounded-3xl disabled:bg-slate-600 hover:bg-purple-900"
             disabled={!isFormValid}
             formAction={signup}
+            onClick={() => {
+              setIsLoading(true);
+            }}
           >
             Sign up
           </button>
