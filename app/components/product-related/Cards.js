@@ -13,7 +13,7 @@ import Link from "next/link";
 
 export default function Cards({ customize }) {
   // possible inputs
-
+  // TODO: get the cards to be unified, not priority. if ur here before doing everything else GET OUTTA HERE ME!!
   const cardData = {
     title: customize.title,
     id: customize.id,
@@ -30,7 +30,7 @@ export default function Cards({ customize }) {
 
   return (
     <Link href={`/products/${cardData.id}`}>
-      <Card sx={{ maxWidth: 345, maxHeight: 600 }} className="bg-backDropBlue">
+      <Card sx={{ maxWidth: 345 }} className="bg-backDropBlue">
         <CardActionArea>
           <CardMedia
             component="img"
@@ -50,7 +50,6 @@ export default function Cards({ customize }) {
           </CardContent>
         </CardActionArea>
         <div className="flex items-center p-2">
-          <Button>Share</Button>
           <AddToCartBtn productData={cardData} />
           <p> {cardData.price.toFixed(2)} $</p>
         </div>

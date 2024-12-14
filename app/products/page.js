@@ -10,6 +10,7 @@ import BoxSkeleton from "../components/loading/BoxSkeleton";
 import AutocompleteTag from "../components/product-related/AutoCompleteTag";
 import Link from "next/link";
 
+// TODO: get product id pages up and running. it worked earlier? I though. will go over it tomorrow.
 const tags = [
   { label: "keychain", id: 1 },
   { label: "acrylic-charm", id: 2 },
