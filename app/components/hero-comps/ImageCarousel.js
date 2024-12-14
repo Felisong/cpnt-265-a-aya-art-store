@@ -1,33 +1,49 @@
 "use client";
-import React from "react";
-import Slider from "react-slick";
+import React, { useState } from "react";
+import { DotButton, useDotButton } from "./EmblaCarouselDotButton";
 
-function SimpleSlider({ images }) {
-  console.log(images);
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    accessibility: true,
-  };
+import useEmblaCarousel from "embla-carousel-react";
+import {
+  NextButton,
+  PrevButton,
+  usePrevNextButtons,
+} from "./EmblaCarouselArrowButton";
+
+export default function ImageCarousel(props) {
+  const { slides, options } = props;
+  const [emblaRef, emblaApi] = useEmblaCarousel(options);
+  const [loading, setLoading] = useState(true);
+
+  const { selectedIndex, scrollSnaps, onDotButtonClick } =
+    useDotButton(emblaApi);
+
+  const {
+    prevBtnDisabled,
+    nextBtnDisabled,
+    onPrevButtonClick,
+    onNextButtonClick,
+  } = usePrevNextButtons(emblaApi);
+
+  console.log(slides);
+
   return (
-    <div className="slider-container">
-      <Slider {...settings}>
-        <div>
-          <img src={images} alt={images}></img>
-          <h3>1</h3>
+    <section className="embla">
+      <div className="embla__viewport" ref={emblaRef}>
+        <div className="embla__container">
+          {slides.map((slide, index) => (
+            <div className="embla__slide" key={index}>
+              <img src={slide.src} alt={slide.alt} className="h-[65vh" />
+            </div>
+          ))}
         </div>
-        <div>
-          <h3>2</h3>
+      </div>
+
+      <div className="embla__controls">
+        <div className="embla__buttons">
+          <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
+          <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
         </div>
-        <div>
-          <h3>3</h3>
-        </div>
-      </Slider>
-    </div>
+      </div>
+    </section>
   );
 }
-
-export default SimpleSlider;
