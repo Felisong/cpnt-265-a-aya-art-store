@@ -28,9 +28,7 @@ export default function Home() {
 
   return (
     <>
-      <div>
-        <ImageCarousel slides={slides} options={options} />
-      </div>
+      <div>{/* <ImageCarousel slides={slides} options={options} /> */}</div>
 
       <div>
         <ProductSection />

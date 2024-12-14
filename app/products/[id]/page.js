@@ -12,7 +12,8 @@ export default function ProductPage({ params }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [id, setId] = useState(null);
-
+  const [slides, setSlides] = useState(null);
+  const [options, setOptions] = useState(null);
   // Declared function to unwrap the params promise
   async function unwrapParams() {
     const { id } = await params; // Await the `params` promise
@@ -24,8 +25,21 @@ export default function ProductPage({ params }) {
       setProducts(data);
       setError("");
       const product = data.filter((product) => product.id === id);
-      setProduct(product[0]);
-      console.log(`product: `, product[0]);
+      setProduct(product);
+      const slides = [
+        { src: product[0].image_one, alt: product[0].image_alt_one },
+        { src: product[0].image_two, alt: product[0].image_alt_two },
+        { src: product[0].image_three, alt: product[0].image_alt_three },
+      ];
+      const options = [
+        {
+          loop: true,
+          speed: 10,
+          align: "center",
+        },
+      ];
+      setSlides(slides);
+      setOptions(options);
     } catch (error) {
       console.error(error);
       setLoading(true);
@@ -52,10 +66,8 @@ export default function ProductPage({ params }) {
   } else {
     return (
       <div className="text-center text-lg">
-        <div>
-          meow!
-          <CarouselProduct />
-          {/* <img src={product.image_one} alt={product.image_alt_one}></img> */}
+        <div className="w-full">
+          <CarouselProduct slides={slides} options={options} />
         </div>
       </div>
     );
