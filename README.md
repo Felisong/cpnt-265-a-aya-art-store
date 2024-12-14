@@ -15,4 +15,4 @@ My name is Carolina. I am a web dev student trying to create an operational e-co
 - [chatgpt for questions](https://chatgpt.com)
 - [heroicons] (https://heroicons.com)
 
-= [thank you Akiran on Github for the Carousel component!!!](https://github.com/akiran/react-slick?tab=readme-ov-file))
+- [Embla Carousel] (https://www.embla-carousel.com)

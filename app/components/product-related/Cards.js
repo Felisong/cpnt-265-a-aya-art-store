@@ -30,7 +30,7 @@ export default function Cards({ customize }) {
 
   return (
     <Link href={`/products/${cardData.id}`}>
-      <Card sx={{ maxWidth: 345 }} className="bg-backDropBlue">
+      <Card sx={{ maxWidth: 345, maxHeight: 600 }} className="bg-backDropBlue">
         <CardActionArea>
           <CardMedia
             component="img"
@@ -39,7 +39,7 @@ export default function Cards({ customize }) {
             alt={cardData.alt1}
             sx={{
               width: "full",
-              height: "25rem",
+              height: "20rem",
             }}
           />
           <CardContent className="min-h-56">

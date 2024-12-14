@@ -1,67 +1,49 @@
 "use client";
-import Image from "next/image";
-import { useState } from "react";
+import React, { useState } from "react";
+import { DotButton, useDotButton } from "./EmblaCarouselDotButton";
 
-export default function ImageCarousel() {
-  const images = [
-    {
-      src: "/hamster-collection-reusable-sticker-book-size-a5-50-sheets-stationary-1.webp",
-      alt: "A journal with a pink cute hamster staring at you",
-    },
-    {
-      src: "/pokemon-25th-anniversary-mewtwo-and-mew-totes-bag-1.webp",
-      alt: "A cloth bag with an illustration of Mewtwo and Mew from pokemon.",
-    },
-    {
-      src: "/kingdom-hearts-tamagotchi-keychain-sora-roxas-double-sided-clear-acrylic-1.webp",
-      alt: "2 keychains that look like tomagachis. chibi-fied (cute and chubby cheeked) drawn characters from Kingdom Hearts. The characters are Sora, and Roxas. ",
-    },
-  ];
-  // const slides = document.getElementsByClassName("carousel-item");
-  // const dots = document.getElementsByClassName("dot");
-  // const [position, setPosition] = useState(0);
-  // const numOfSlides = slides.length;
+import useEmblaCarousel from "embla-carousel-react";
+import {
+  NextButton,
+  PrevButton,
+  usePrevNextButtons,
+} from "./EmblaCarouselArrowButton";
 
-  // const main = 1;
+export default function ImageCarousel(props) {
+  const { slides, options } = props;
+  const [emblaRef, emblaApi] = useEmblaCarousel(options);
+  const [loading, setLoading] = useState(true);
+
+  const { selectedIndex, scrollSnaps, onDotButtonClick } =
+    useDotButton(emblaApi);
+
+  const {
+    prevBtnDisabled,
+    nextBtnDisabled,
+    onPrevButtonClick,
+    onNextButtonClick,
+  } = usePrevNextButtons(emblaApi);
+
+  console.log(slides);
 
   return (
-    <>
-      <div className="w-full flex flex-col lg:mx-auto lg:items-center bg-backDropPink lg:p-4">
-        {/* if index === img-id then execute then show item */}
-        <div className="carousel-item carousel-item-visible">
-          <img src={images[0].src} alt={images[0].alt} />
-        </div>
-        {/* <div className="carousel-item">
-          <img src={images[1].src} alt={images[1].alt} />
-        </div>
-        <div className="carousel-item">
-          <img src={images[2].src} alt={images[2].alt} />
-        </div> */}
-        <div className="carousel-actions">
-          <button
-            id="carousel-button-prev"
-            aria-label="Previous"
-            onClick={(e) => {
-              e.preventDefault();
-            }}
-          >
-            &lt;
-          </button>
-          <button id="carousel-button-next" aria-label="Next">
-            &gt;
-          </button>
-        </div>
-        <div className="carousel-dots">
-          <input
-            className="dot selected-dot"
-            type="radio"
-            name="dot"
-            defaultChecked=""
-          />
-          <input className="dot" type="radio" name="dot" />
-          <input className="dot" type="radio" name="dot" />
+    <section className="embla">
+      <div className="embla__viewport" ref={emblaRef}>
+        <div className="embla__container">
+          {slides.map((slide, index) => (
+            <div className="embla__slide" key={index}>
+              <img src={slide.src} alt={slide.alt} className="h-[65vh" />
+            </div>
+          ))}
         </div>
       </div>
-    </>
+
+      <div className="embla__controls">
+        <div className="embla__buttons">
+          <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
+          <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
+        </div>
+      </div>
+    </section>
   );
 }
