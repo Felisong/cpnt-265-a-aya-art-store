@@ -31,8 +31,8 @@ export default function Navigation() {
                 aria-current={item.current ? "page" : undefined}
                 className={classNames(
                   item.current
-                    ? "bg-darkBlue text-white px-2 text-xl w-30"
-                    : "text-white text-xl hover:bg-backDropPink hover:text-black",
+                    ? " text-white px-2 text-xl w-30"
+                    : "font-bold text-white text-xl hover:bg-backDropPink hover:text-black",
                   "rounded-md py-2 px-1"
                 )}
               >

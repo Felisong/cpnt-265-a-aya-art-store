@@ -33,7 +33,7 @@ export function SuccessContent({ stripeSession }) {
     if (session) {
       if (session.paymentStatus === "paid") {
         // clearCart(session);
-        // handleOrderUpload(session);
+        handleOrderUpload(session);
         // setErrMsg("");
       } else {
         setErrMsg("There was Something Strange With Payment!!");
@@ -116,6 +116,7 @@ export function SuccessContent({ stripeSession }) {
   async function orderUpload(session) {
     const number = session.amountTotal / 100;
     const totalPrice = number.toFixed(2);
+    console.log(`upload items: `, user.id, totalPrice, "Awaiting Delivery");
     const { data, error } = await supabase
       .from("orders")
       .insert([
