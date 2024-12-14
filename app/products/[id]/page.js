@@ -1,5 +1,6 @@
 "use client";
 
+import { CarouselProduct } from "@/app/components/hero-comps/CarouselProduct";
 import { createClient } from "@/utils/supabase/client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -53,7 +54,8 @@ export default function ProductPage({ params }) {
       <div className="text-center text-lg">
         <div>
           meow!
-          <img src={product.image_one} alt={product.image_alt_one}></img>
+          <CarouselProduct />
+          {/* <img src={product.image_one} alt={product.image_alt_one}></img> */}
         </div>
       </div>
     );
