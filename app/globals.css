@@ -103,6 +103,7 @@ h4 {
   }
   .embla__slide {
     width: 100%;
+    border-radius: 12px;
   }
   .embla__slide img {
   }

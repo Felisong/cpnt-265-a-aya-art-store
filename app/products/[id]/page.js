@@ -57,6 +57,7 @@ export default function ProductPage({ params }) {
     setLoading(false);
   }, [id]);
 
+  console.log(product);
   if (error)
     return (
       <p className="text-center text-lg text-red-500">Product not found.</p>
@@ -65,9 +66,16 @@ export default function ProductPage({ params }) {
     return <p className="text-center text-lg text-yellow-500">Loading...</p>;
   } else {
     return (
-      <div className="text-center text-lg">
-        <div className="w-full lg:w-1/2">
-          <CarouselProduct slides={slides} options={options} />
+      <div className="flex flex-col lg:flex-row">
+        <div className="text-center text-lg lg:my-20">
+          <div className="w-full lg:w-1/2 lg:m-4 lg:rounded-3xl">
+            <CarouselProduct slides={slides} options={options} />
+          </div>
+        </div>
+
+        <div>
+          <h1>{product.description}</h1>
+          <h2> hello!??!?</h2>
         </div>
       </div>
     );
