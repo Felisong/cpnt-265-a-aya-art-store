@@ -29,7 +29,7 @@ async function createProfileIfNeeded(user) {
   }
 }
 
-// Usage in your app after user logs in
+// Usage in app after user logs in
 const { data: user, error } = await supabase.auth.getUser();
 if (user) {
   createProfileIfNeeded(user);

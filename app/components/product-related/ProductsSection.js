@@ -33,7 +33,6 @@ export default function ProductSection() {
     setSnippet(previewArr);
   }
 
-  console.log(snippet);
   return (
     <div className="mt-24 mb-0 w-full mx-auto">
       <Title text="Products" />

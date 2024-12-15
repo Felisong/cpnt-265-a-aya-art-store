@@ -16,7 +16,10 @@ export default function AboutCard() {
           ></Image>
         </div>
         <Socials />
-        <div> 2 buttons</div>
+        <div>
+          {" "}
+          <button></button>
+        </div>
         <div> 3 buttons </div>
         <div> 2 buttons</div>
       </div>

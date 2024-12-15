@@ -7,6 +7,7 @@ import Title from "./components/Title";
 import AboutSection from "./components/AboutSection";
 import { CarouselProduct } from "./components/hero-comps/CarouselProduct";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 export default function Home() {
   const options = {
@@ -37,12 +38,11 @@ export default function Home() {
 
       <div>
         <ProductSection />
-        <button
-          onClick={redirect("/products")}
-          className="bg-buttonPurple text-white p-4 text-2xl font-bold rounded-full flex mx-auto mb-20"
-        >
-          Shop Now!
-        </button>
+        <Link href={`/products`}>
+          <button className="bg-buttonPurple text-white p-4 text-2xl font-bold rounded-full flex mx-auto mb-20">
+            Shop Now!
+          </button>
+        </Link>
       </div>
       <AboutSection />
     </>
