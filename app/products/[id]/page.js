@@ -1,6 +1,7 @@
 "use client";
 
 import { CarouselProduct } from "@/app/components/hero-comps/CarouselProduct";
+import AddToCartBtn from "@/app/components/product-related/AddToCartBtn";
 import { createClient } from "@/utils/supabase/client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -58,6 +59,7 @@ export default function ProductPage({ params }) {
   }, [id]);
 
   console.log(product);
+
   if (error)
     return (
       <p className="text-center text-lg text-red-500">Product not found.</p>
@@ -73,11 +75,12 @@ export default function ProductPage({ params }) {
           </div>
         </div>
 
-        <div className="flex flex-col lg:w-1/2 text-lg my-20 mx-8">
-          <h1 className="text-3xl pb-8">{product.description}</h1>
-          <p className="pb-12"> {product.extra}</p>
+        <div className="flex flex-col lg:w-1/2 text-lg my-20 mx-8 lg:pt-24">
+          <h1 className="text-3xl pb-8">{product.title}</h1>
+          <p className="pb-12"> {product.description + product.extra}</p>
           <h2 className="text-2xl">Price: {product.price}</h2>
           <p className="text-base"> tags: {product.tags}</p>
+          <AddToCartBtn productData={product} />
         </div>
       </div>
     );
