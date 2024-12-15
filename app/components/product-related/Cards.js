@@ -29,7 +29,7 @@ export default function Cards({ customize }) {
   };
 
   return (
-    <Link href={`/products/${cardData.id}`}>
+    <Link href={`/products/${cardData.id || customize.id}`}>
       <Card sx={{ maxWidth: 345 }} className="bg-backDropBlue">
         <CardActionArea>
           <CardMedia

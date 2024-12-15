@@ -14,8 +14,8 @@ export default function ImageCarousel(props) {
   const [emblaRef, emblaApi] = useEmblaCarousel(options);
   const [loading, setLoading] = useState(true);
 
-  const { selectedIndex, scrollSnaps, onDotButtonClick } =
-    useDotButton(emblaApi);
+  // const { selectedIndex, scrollSnaps, onDotButtonClick } =
+  //   useDotButton(emblaApi);
 
   const {
     prevBtnDisabled,
@@ -23,8 +23,6 @@ export default function ImageCarousel(props) {
     onPrevButtonClick,
     onNextButtonClick,
   } = usePrevNextButtons(emblaApi);
-
-  console.log(slides);
 
   return (
     <section className="embla">

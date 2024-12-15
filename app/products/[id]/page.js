@@ -66,7 +66,7 @@ export default function ProductPage({ params }) {
   } else {
     return (
       <div className="text-center text-lg">
-        <div className="w-full">
+        <div className="w-full lg:w-1/2">
           <CarouselProduct slides={slides} options={options} />
         </div>
       </div>

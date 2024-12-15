@@ -1,9 +1,11 @@
+"use client";
 import Image from "next/image";
 import ImageCarousel from "./components/hero-comps/ImageCarousel";
 import ProductSection from "./components/product-related/ProductsSection";
 import { Button } from "@mui/material";
 import Title from "./components/Title";
 import AboutSection from "./components/AboutSection";
+import { CarouselProduct } from "./components/hero-comps/CarouselProduct";
 
 export default function Home() {
   const options = {
@@ -28,7 +30,9 @@ export default function Home() {
 
   return (
     <>
-      <div>{/* <ImageCarousel slides={slides} options={options} /> */}</div>
+      <div className="lg:h-[70vh] lg:w-full lg:bg-backDropPink ">
+        <CarouselProduct slides={slides} options={options} />
+      </div>
 
       <div>
         <ProductSection />

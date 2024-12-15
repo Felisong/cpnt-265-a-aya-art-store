@@ -33,6 +33,7 @@ export default function ProductSection() {
     setSnippet(previewArr);
   }
 
+  console.log(snippet);
   return (
     <div className="mt-24 mb-0 w-full mx-auto">
       <Title text="Products" />
@@ -52,6 +53,7 @@ export default function ProductSection() {
                 image_alt_two: product.image_alt_two,
                 image_alt_three: product.image_alt_three,
                 price: product.price,
+                id: product.id,
               }}
             />
           ))}
