@@ -6,7 +6,7 @@ import { Button } from "@mui/material";
 import Title from "./components/Title";
 import AboutSection from "./components/AboutSection";
 import { CarouselProduct } from "./components/hero-comps/CarouselProduct";
-import { redirect } from "next/dist/server/api-utils";
+import { redirect } from "next/navigation";
 
 export default function Home() {
   const options = {
