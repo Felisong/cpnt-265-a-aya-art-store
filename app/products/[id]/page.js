@@ -25,7 +25,7 @@ export default function ProductPage({ params }) {
       setProducts(data);
       setError("");
       const product = data.filter((product) => product.id === id);
-      setProduct(product);
+      setProduct(product[0]);
       const slides = [
         { src: product[0].image_one, alt: product[0].image_alt_one },
         { src: product[0].image_two, alt: product[0].image_alt_two },
@@ -67,15 +67,17 @@ export default function ProductPage({ params }) {
   } else {
     return (
       <div className="flex flex-col lg:flex-row">
-        <div className="text-center text-lg lg:my-20">
-          <div className="w-full lg:w-1/2 lg:m-4 lg:rounded-3xl">
+        <div className="text-center text-lg lg:my-20 lg:w-1/2">
+          <div className="lg:m-4 lg:rounded-3xl">
             <CarouselProduct slides={slides} options={options} />
           </div>
         </div>
 
-        <div>
-          <h1>{product.description}</h1>
-          <h2> hello!??!?</h2>
+        <div className="flex flex-col lg:w-1/2 text-lg my-20 mx-8">
+          <h1 className="text-3xl pb-8">{product.description}</h1>
+          <p className="pb-12"> {product.extra}</p>
+          <h2 className="text-2xl">Price: {product.price}</h2>
+          <p className="text-base"> tags: {product.tags}</p>
         </div>
       </div>
     );
