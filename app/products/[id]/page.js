@@ -1,6 +1,7 @@
 "use client";
 
 import { CarouselProduct } from "@/app/components/hero-comps/CarouselProduct";
+import LoadingBackDrop from "@/app/components/loading/LoadingBackdrop";
 import AddToCartBtn from "@/app/components/product-related/AddToCartBtn";
 import { createClient } from "@/utils/supabase/client";
 import Image from "next/image";
@@ -65,7 +66,7 @@ export default function ProductPage({ params }) {
       <p className="text-center text-lg text-red-500">Product not found.</p>
     );
   if (!product) {
-    return <p className="text-center text-lg text-yellow-500">Loading...</p>;
+    return <LoadingBackDrop />;
   } else {
     return (
       <div className="flex flex-col lg:flex-row">
@@ -77,8 +78,11 @@ export default function ProductPage({ params }) {
 
         <div className="flex flex-col lg:w-1/2 text-lg my-20 mx-8 lg:pt-24">
           <h1 className="text-3xl pb-8">{product.title}</h1>
-          <p className="pb-12"> {product.description + product.extra}</p>
-          <h2 className="text-2xl">Price: {product.price}</h2>
+          <p className="pb-12 lg:w-2/3">
+            {" "}
+            {product.description + product.extra}
+          </p>
+          <h2 className="text-2xl">Price: $ {product.price.toFixed(2)} CAD</h2>
           <p className="text-base"> tags: {product.tags}</p>
           <AddToCartBtn productData={product} />
         </div>
