@@ -102,6 +102,7 @@ export default function UserIcon() {
             strokeWidth="1.5"
             className="size-12 stroke-white hover:stroke-backDropDark"
           >
+            <title> open user dropdown </title>
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
