@@ -2,6 +2,10 @@
 
 My name is Carolina. I am a web dev student trying to create an operational e-commerce site in 2 weeks. I at this point have created a minimum viable product.I am happy to say that I have learned a lot of this.
 
+This project is for my friend who has an etsy store : [link here](https://www.etsy.com/ca/shop/ReikasArt)
+
+it is intended to be a show of an e commerce site built by me.
+
 I will provide a table of contents below for ease of navigation
 
 # Table of contents
@@ -35,7 +39,17 @@ I will provide a table of contents below for ease of navigation
 
 ## Instructions to download
 
-You can download my content but I will not be collaborating on this. This is a personal project that I want to work on.
+You can download my content but I will not be collaborating on this. This is a personal project that I want to work on. However if for any reason you want to look at the code and download it you may
+
+1. copy url
+2. open your gitbash or any terminal
+3. type in...
+
+```
+git clone https://github.com/Felisong/cpnt-265-a-aya-art-store.git
+```
+
+4. open and view code.
 
 ## Attributions
 
