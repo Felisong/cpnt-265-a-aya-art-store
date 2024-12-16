@@ -35,7 +35,7 @@ export default function CartQuantity({ product }) {
       onChange={(e) => {
         handleOnChange(e);
       }}
-      className="w-1/4 mx-4 text-start text-sm rounded h-fit p-1"
+      className="w-1/4 text-start text-sm rounded h-fit p-1"
     >
       {dropDown.map((option) => {
         return (

@@ -13,7 +13,7 @@ export function Total({ product }) {
   }
 
   return (
-    <div className="ml-4 md:ml-32 lg:ml-0">
+    <div className="">
       <p> {total.toFixed(2)} $</p>
     </div>
   );

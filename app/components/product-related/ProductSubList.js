@@ -23,7 +23,7 @@ export default function ProductSublist({ cartData }) {
         return (
           <li
             key={nextId++}
-            className="my-4 text-sm flex w-full md:text-lg lg:text-xl"
+            className="my-4 text-sm flex w-full md:text-lg lg:text-xl justify-around"
           >
             <p className="w-1/3">{product.product_title}</p>
             <CartQuantity product={product} />
