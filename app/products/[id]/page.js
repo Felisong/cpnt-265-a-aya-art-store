@@ -58,7 +58,7 @@ export default function ProductPage({ params }) {
     setLoading(false);
   }, [id]);
 
-  console.log(product);
+  // console.log(product);
 
   if (error)
     return (

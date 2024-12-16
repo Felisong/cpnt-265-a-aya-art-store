@@ -1,43 +1,64 @@
-import { createClient } from "@/utils/supabase/client";
-
 import { useEffect, useState } from "react";
 import CircularLoading from "./CircularLoading";
+import { create } from "domain";
+import { createClient } from "@/utils/supabase/client";
+
+const supabase = createClient();
 
 export default function AddToCartBtn({ productData }) {
-  const product = productData;
-  const supabase = createClient();
+  // console.log(productData.id);
 
-  const [initialCart, setInitialCart] = useState([]);
-  const [cartProducts, setCartProducts] = useState(initialCart);
+  const [isInCart, setIsInCart] = useState(false);
+  const [cartProducts, setCartProducts] = useState([]);
   const [user, setUser] = useState(null);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const isInsideArr = (Element) => Element.product_id === product.id;
-  const findIndex = cartProducts.findIndex(isInsideArr);
-
   useEffect(() => {
-    getUser();
     getCart();
+    getUser();
+    console.log("first hello");
+    const subscription = supabase
+      .channel("cart_changes")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "cart_items" },
+        (payload) => {
+          console.log("hello?");
+          handleCartChange(payload);
+        }
+      )
+      .subscribe();
+
+    return () => {
+      subscription.unsubscribe();
+    };
   }, []);
 
   useEffect(() => {
-    updateCart();
-  }, [initialCart]);
+    setIsInCart(
+      cartProducts.some((product) => product.product_id === productData.id)
+    );
+  }, [cartProducts, productData.id]);
 
-  function updateCart() {
-    setCartProducts(initialCart);
-  }
-  // ON LOAD FUNCTIONS
   async function getCart() {
     try {
-      const { data } = await supabase.from("cart_items").select();
-      setInitialCart(data || []);
+      const { data } = await supabase
+        .from("cart_items")
+        .select()
+        .order("id", { ascending: true });
+      setCartProducts(data || []);
       setLoading(false);
     } catch (error) {
       console.error("unable to get items", error);
+      setLoading(false);
     }
+  }
+
+  function handleCartChange(payload) {
+    // console.log("change received: ", payload);
+    getCart();
   }
 
   async function getUser() {
@@ -52,57 +73,59 @@ export default function AddToCartBtn({ productData }) {
   // handle what happens on click.
   function handleClick(e) {
     e.preventDefault();
+
     if (user === null) {
       alert("Please login to add to cart.");
       return;
     }
+
     // NEW HANDLE SUBMISSIONS
     handleDatabase();
   }
 
   async function handleDatabase() {
-    if (findIndex !== -1) {
-      setCartProducts(
-        cartProducts.filter((item) => item.product_id !== product.id)
-      );
-      const { data, error } = await supabase.from("cart_items").delete().match({
-        user_id: user.user.id,
-        product_id: product.id,
-      });
-      if (error) {
-        console.error("data unable to delete.");
-        alert("unable to delete from cart.");
-        window.location.reload();
-      }
+    const isProductInCart = cartProducts.some(
+      (product) => product.product_id === productData.id
+    );
+
+    if (isProductInCart) {
+      await deleteCartItem(productData);
+      setIsInCart(false);
     } else {
-      setCartProducts([
-        // all the other cartProducts if any
-        ...cartProducts,
-        // adds "this" into the array
+      // if item does not exists on database
+      await createCartItem(productData);
+      setIsInCart(true);
+    }
+
+    await getCart();
+  }
+
+  async function createCartItem(productData) {
+    const { data, error } = await supabase
+      .from("cart_items")
+      .insert([
         {
           user_id: user.user.id,
-          product_id: product.id,
+          product_id: productData.id,
           quantity: 1,
-          price_per: product.price,
-          product_title: product.title,
+          price_per: productData.price,
+          product_title: productData.title,
         },
-      ]);
-      const { data, error } = await supabase
-        .from("cart_items")
-        .insert([
-          {
-            user_id: user.user.id,
-            product_id: product.id,
-            quantity: 1,
-            price_per: product.price,
-            product_title: product.title,
-          },
-        ])
-        .select();
-      if (error) {
-        console.error("Unable to insert to database.");
-        alert("unable to remove from database, please try again.");
-      }
+      ])
+      .select();
+    if (error) {
+      console.error("Unable to insert to database.");
+      alert("unable to remove from database, please try again.");
+    }
+  }
+  async function deleteCartItem(productData) {
+    const { data, error } = await supabase.from("cart_items").delete().match({
+      user_id: user.user.id,
+      product_id: productData.id,
+    });
+    if (error) {
+      console.error("data unable to delete.");
+      alert("unable to delete from cart.");
     }
   }
 
@@ -125,10 +148,10 @@ export default function AddToCartBtn({ productData }) {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             id="cart"
-            className={`size-8 stroke-strongPink hover:stroke-pink-900 ${
-              findIndex === -1 && product !== null
+            className={`size-8 stroke-gray-800 hover:stroke-pink-900 ${
+              !isInCart
                 ? `fill-none`
-                : `fill-strongPink hover:stroke-pink-900 hover:fill-pink-900`
+                : `fill-strongPink stroke-strongPink hover:stroke-pink-900 hover:fill-pink-900`
             }`}
           >
             <path

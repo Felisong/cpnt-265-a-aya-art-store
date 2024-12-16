@@ -52,6 +52,7 @@ export default function LoginPage() {
     }
   }
 
+  // TODO: add header for users to know which login or check in theyre in.
   // console.log(isFormValid);
   return (
     <div className="bg-[url('/gemini-generated-background.png')] bg-cover bg-center h-[75vh] flex items-center justify-center relative">

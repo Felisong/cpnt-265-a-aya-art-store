@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import CartQuantity from "./CartQuantity";
 import { Total } from "./Total";
+import { DeleteCartItem } from "./DeleteProduct";
 
 export default function ProductSublist({ cartData }) {
   let nextId = 0;
@@ -28,6 +29,7 @@ export default function ProductSublist({ cartData }) {
             <p className="w-1/3">{product.product_title}</p>
             <CartQuantity product={product} />
             <Total product={product} />
+            <DeleteCartItem product={product} />
           </li>
         );
       })}

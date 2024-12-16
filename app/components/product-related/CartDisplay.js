@@ -6,11 +6,12 @@ import { redirect } from "next/dist/server/api-utils";
 import { Loading } from "@/app/success/page";
 import CircularLoading from "./CircularLoading";
 
+const supabase = createClient();
+
 export default function CartDisplay() {
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(true);
-  const supabase = createClient();
-  //
+
   useEffect(() => {
     getCart();
 
@@ -43,9 +44,12 @@ export default function CartDisplay() {
   }
 
   function handleCartChange(payload) {
-    console.log("change received: ", payload);
+    // console.log("change received: ", payload);
     getCart();
   }
+
+  // TODO: if products doesnt update, do this method to get real time updates, check the payload, and get cart like so to then compare with the cart inside if it exists or not.
+  // if id !== id shenanigan
 
   if (loading) {
     return (
