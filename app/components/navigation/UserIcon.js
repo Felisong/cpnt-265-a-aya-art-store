@@ -89,6 +89,7 @@ export default function UserIcon() {
     <Menu as="div" className="relative inline-block text-left">
       <div>
         <MenuButton
+          aria-label="User Dropdown"
           onClick={(e) => {
             getUser();
           }}

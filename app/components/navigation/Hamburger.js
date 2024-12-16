@@ -60,7 +60,10 @@ export default function Hamburger() {
     <div className="block md:hidden">
       {["top"].map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>
+          <Button
+            aria-label="Navigation dropdown"
+            onClick={toggleDrawer(anchor, true)}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

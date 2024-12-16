@@ -116,9 +116,11 @@ export default function AddToCartBtn({ productData }) {
     return (
       <>
         <button
+          className=""
           onClick={(e) => {
             handleClick(e);
           }}
+          aria-label="add/ remove from cart"
         >
           <div className="flex items-center">
             <svg
