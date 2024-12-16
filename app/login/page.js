@@ -58,6 +58,11 @@ export default function LoginPage() {
       {isLoading ? <LoadingBackDrop /> : <></>}
       <div className="absolute inset-0 bg-black opacity-30"></div>
       <form className="relative z-10  bg-backDropPink p-8 text-lg rounded shadow-lg flex flex-col w-4/5 md:w-1/3">
+        {isLoggingIn ? (
+          <h1 className="text-xl md:text-2xl lg:text-3xl py-4">Log In</h1>
+        ) : (
+          <h1 className="text-xl md:text-2xl lg:text-3xl py-4">Sign In</h1>
+        )}
         <label htmlFor="email">Email:</label>
         <input
           id="email"
