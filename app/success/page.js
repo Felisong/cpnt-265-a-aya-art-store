@@ -6,6 +6,7 @@ import { clearCart, getServerSideProps } from "./actions";
 import { useSearchParams } from "next/navigation";
 import OrderSummary from "../components/product-related/OrderSummary";
 import { createClient } from "@/utils/supabase/client";
+import LoadingBackDrop from "../components/loading/LoadingBackdrop";
 
 // change loading to a skeleton later.
 export function Loading() {
@@ -31,9 +32,10 @@ export function SuccessContent({ stripeSession }) {
   // TODO: orderupload is where its getting stuck. consider checking if the id im putting in is a valid uuid perhaps.
   useEffect(() => {
     if (session) {
+      setLoading(false);
       if (session.paymentStatus === "paid") {
         // clearCart(session);
-        handleOrderUpload(session);
+        // handleOrderUpload(session);
         // setErrMsg("");
       } else {
         setErrMsg("There was Something Strange With Payment!!");
@@ -161,10 +163,20 @@ export function SuccessContent({ stripeSession }) {
     }
   }
 
+  if (loading)
+    return (
+      // loading modal
+      <div>
+        <LoadingBackDrop />
+      </div>
+    );
   return (
-    <div>
-      <h1>Payment Completed!</h1>
-      {!loading && <OrderSummary session={session} />}
+    <div className="bg-[url('/gemini-generated-background.png')] bg-cover bg-center h-fit flex items-center justify-center relative md:h-[100vh] ">
+      <div className="absolute inset-0 bg-black opacity-30"></div>
+      <div className="relative z-10  bg-backDropPink p-8 w-4/5 rounded-3xl my-20 lg:w-3/5">
+        <h1 className="text-3xl lg:text-4xl">Payment Completed!</h1>
+        {!loading && <OrderSummary session={session} />}
+      </div>
     </div>
   );
 }
