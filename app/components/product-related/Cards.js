@@ -30,7 +30,7 @@ export default function Cards({ customize }) {
 
   return (
     <Link href={`/products/${cardData.id || customize.id}`}>
-      <Card sx={{ maxWidth: 345 }} className="bg-backDropBlue">
+      <Card sx={{ maxWidth: 345 }} className="bg-backDropBlue h-full">
         <CardActionArea>
           <CardMedia
             component="img"
@@ -42,17 +42,18 @@ export default function Cards({ customize }) {
               height: "20rem",
             }}
           />
-          <CardContent className="min-h-56">
+          <CardContent className="min-h-64">
             <Typography gutterBottom variant="h5" component="div">
               {cardData.title}
             </Typography>
             <Typography variant="body1">{cardData.description}</Typography>
           </CardContent>
+
+          <div className="flex items-center p-2 justify-between">
+            <AddToCartBtn productData={cardData} />
+            <p className="mr-4 text-lg"> {cardData.price.toFixed(2)} $</p>
+          </div>
         </CardActionArea>
-        <div className="flex items-center p-2">
-          <AddToCartBtn productData={cardData} />
-          <p> {cardData.price.toFixed(2)} $</p>
-        </div>
       </Card>
     </Link>
   );
