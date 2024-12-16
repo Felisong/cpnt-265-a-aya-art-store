@@ -1,6 +1,6 @@
-# Hello, welcome to Aya's Art Store Repository
+# Hello, welcome to Reika's Art Store Repository
 
-My name is Carolina. I am a web dev student trying to create an operational e-commerce site in 2 weeks. I don't know how it will turn out, but this will be my first read me.
+My name is Carolina. I am a web dev student trying to create an operational e-commerce site in 2 weeks. I at this point have created a minimum viable product.
 
 ## Attributions
 

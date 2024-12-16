@@ -84,14 +84,16 @@ export default function Checkout() {
 
   return (
     <div className="h-[75vh]">
-      <div className="bg-backDropPink py-20 h-full">
-        <CartDisplay />
-        <button
-          onClick={handleCheckout}
-          className="bg-buttonPurple text-white p-4 text-lg rounded-full w-fit m-6 mb-4 flex mx-auto my-10 hover:bg-purple-950 hover:text-white transition"
-        >
-          Proceed to Checkout
-        </button>
+      <div className="flex justify-center items-center">
+        <div className="bg-backDropPink w-fit p-12 my-20 rounded-3xl py-20 h-full">
+          <CartDisplay />
+          <button
+            onClick={handleCheckout}
+            className="bg-buttonPurple text-white p-4 text-lg rounded-full w-fit m-6 mb-4 flex mx-auto my-10 hover:bg-purple-950 hover:text-white transition"
+          >
+            Proceed to Checkout
+          </button>
+        </div>
       </div>
     </div>
   );

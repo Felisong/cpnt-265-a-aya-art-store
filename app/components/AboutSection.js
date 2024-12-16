@@ -7,7 +7,7 @@ export default function AboutSection() {
     <>
       <section className="">
         <Title text="Contact" />
-        <div className="bg-backDropPink w-full flex flex-col md:flex-row md:justify-around">
+        <div className="bg-backDropPink w-full flex flex-col md:flex-row md:justify-around py-20">
           <div className="w-full py-20 px-2 md:pl-2 md:md:w-1/2 ">
             <ContactForm />
           </div>

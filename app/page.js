@@ -8,6 +8,7 @@ import AboutSection from "./components/AboutSection";
 import { CarouselProduct } from "./components/hero-comps/CarouselProduct";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import LinkButtons from "./components/LinkButtons";
 
 export default function Home() {
   const options = {
@@ -38,11 +39,9 @@ export default function Home() {
 
       <div>
         <ProductSection />
-        <Link href={`/products`}>
-          <button className="bg-buttonPurple text-white p-4 text-2xl font-bold rounded-full flex mx-auto mb-20">
-            Shop Now!
-          </button>
-        </Link>
+        <div className="flex justify-center w-full">
+          <LinkButtons text={{ text: "Shop Now!", href: "/products" }} />
+        </div>
       </div>
       <AboutSection />
     </>
