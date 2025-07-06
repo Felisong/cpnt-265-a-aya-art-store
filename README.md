@@ -4,6 +4,9 @@ My name is Carolina. I am a web dev student trying to create an operational e-co
 
 This project is for my friend who has an etsy store : [link here](https://www.etsy.com/ca/shop/ReikasArt)
 
+Here is a link to the [deployed site](https://reikas-art-felisongs-projects.vercel.app)
+Here is a link to my [github repo (what you're currently on)](https://github.com/Felisong/cpnt-265-a-aya-art-store.git)
+
 it is intended to be a show of an e commerce site built by me.
 
 I will provide a table of contents below for ease of navigation
