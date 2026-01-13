@@ -24,6 +24,7 @@ export default function ProductSection() {
     try {
       const { data } = await supabase.from("products").select();
       setProducts(data);
+      console.log(`do i get data: `, data)
     } catch (error) {
       console.error("couldn't fetch data", error);
     }
